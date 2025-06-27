@@ -1,0 +1,10 @@
+{
+  // Heredamos la configuración principal de TypeScript del proyecto.
+  "extends": "../tsconfig.json",
+  // Sobrescribimos las opciones del compilador específicamente para este script.
+  "compilerOptions": {
+    // Forzamos el uso de CommonJS, que es el sistema de módulos que ts-node espera
+    // para ejecutar scripts de forma aislada como este.
+    "module": "CommonJS"
+  }
+}

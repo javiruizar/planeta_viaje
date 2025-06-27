@@ -1,5 +1,5 @@
 {
-  "name": "temp-app",
+  "name": "planeta-viaje",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,15 +15,19 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
+    "postcss": "^8",
     "prisma": "^6.10.1",
     "tailwindcss": "^4",
+    "@tailwindcss/postcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "ts-node --project prisma/tsconfig.seed.json prisma/seed.ts"
   }
 }

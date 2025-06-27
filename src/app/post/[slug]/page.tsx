@@ -1,0 +1,50 @@
+// src/app/post/[slug]/page.tsx
+
+// Importamos los componentes y datos necesarios.
+import Image from 'next/image';
+import { mockPosts } from '@/lib/data';
+import { notFound } from 'next/navigation';
+
+/**
+ * @description
+ * Esta es la página que muestra un único post del blog. Es una "ruta dinámica" en Next.js.
+ * La parte `[slug]` en la ruta del fichero significa que Next.js generará una página
+ * para cualquier URL que coincida con el patrón `/post/lo-que-sea`.
+ *
+ * @param {{ params: { slug: string } }} props - Next.js pasa automáticamente un objeto `params`
+ *   que contiene los segmentos dinámicos de la URL. En este caso, contiene el `slug` del post.
+ * @returns {React.ReactElement | void} El JSX de la página del post o una página 404 si no se encuentra.
+ */
+export default function PostPage({ params }: { params: { slug: string } }) {
+  // Obtenemos el slug de los parámetros de la URL.
+  const { slug } = params;
+
+  // Buscamos el post en nuestros datos de ejemplo que coincida con el slug.
+  // En una aplicación real, aquí haríamos una consulta a la base de datos.
+  const post = mockPosts.find((p) => p.slug === slug);
+
+  // Si no se encuentra ningún post con ese slug, mostramos la página 404 de Next.js.
+  if (!post) {
+    notFound();
+  }
+
+  // Si encontramos el post, renderizamos su contenido.
+  return (
+    <article className="max-w-4xl mx-auto py-8">
+      
+      {/* Título del post. */}
+      <h1 className="text-4xl font-extrabold text-center mb-4">{post.title}</h1>
+      
+      {/* Contenedor para la imagen de portada. */}
+      <div className="relative h-96 w-full mb-8 rounded-lg overflow-hidden shadow-lg">
+        <Image src={post.imageUrl} alt={`Imagen de portada para ${post.title}`} layout="fill" objectFit="cover" />
+      </div>
+
+      {/* Contenido del post. La clase `prose` de Tailwind aplica estilos de tipografía bonitos. */}
+      <div className="prose dark:prose-invert max-w-none">
+        <p>{post.content}</p>
+      </div>
+
+    </article>
+  );
+}

@@ -1,29 +1,63 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// prisma/schema.prisma
 
+// Este bloque define el generador de cliente de Prisma.
+// Le dice a Prisma que genere el cliente de TypeScript (`prisma-client-js`)
+// que usaremos en nuestro código para interactuar con la base de datos.
 generator client {
   provider = "prisma-client-js"
 }
 
+// Este bloque define la fuente de datos (la base de datos a la que nos conectamos).
+// - `provider`: Especifica que estamos usando PostgreSQL.
+// - `url`: Le dice a Prisma dónde encontrar la base de datos.
+//   `env("DATABASE_URL")` carga la URL de conexión desde las variables de entorno,
+//   lo cual es una buena práctica de seguridad.
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+// Este bloque define el modelo `Post`, que se mapeará a una tabla `Post` en la base de datos.
+// Cada campo del modelo corresponde a una columna en la tabla.
 model Post {
-  id            String    @id @default(cuid())
-  slug          String    @unique
-  title         String
-  // Usamos JSON para poder estructurar el contenido en párrafos, imágenes, etc.
-  content       Json
-  mainImageUrl  String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  
+  // `id`: La clave primaria de la tabla.
+  // - `@id`: Marca este campo como la clave primaria.
+  // - `@default(cuid())`: Genera un identificador único global (CUID), consistente con los otros modelos.
+  id        String   @id @default(cuid())
+
+  // `slug`: El identificador único para la URL del post.
+  // - `@unique`: Asegura que no puede haber dos posts con el mismo slug.
+  slug      String   @unique
+
+  // `title`: El título del post.
+  title     String
+
+  // `excerpt`: Un resumen corto del post.
+  excerpt   String
+
+  // `content`: El contenido completo del post.
+  // - `@db.Text`: Le indica a Prisma que use el tipo `TEXT` de PostgreSQL para textos largos.
+  content   String   @db.Text
+
+  // `imageUrl`: La URL de la imagen de portada del post.
+  imageUrl  String
+
+  // `createdAt`: La fecha y hora en que se creó el post.
+  // - `@default(now())`: Establece el valor por defecto a la fecha y hora actuales.
+  createdAt DateTime @default(now())
+
+  // `updatedAt`: La fecha y hora en que se actualizó el post por última vez.
+  // - `@updatedAt`: Prisma actualizará automáticamente este campo en cada modificación.
+  updatedAt DateTime @updatedAt
+
+  // --- RELACIONES ---
+
+  // Relación con Category: Un post puede pertenecer a una categoría.
   category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId String?
-  
-  comments Comment[]
+  categoryId String?   // Clave foránea que apunta a `Category.id`.
+
+  // Relación con Comment: Un post puede tener muchos comentarios.
+  comments   Comment[]
 }
 
 model Category {
