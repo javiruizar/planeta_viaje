@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id            String    @id @default(cuid())
+  slug          String    @unique
+  title         String
+  // Usamos JSON para poder estructurar el contenido en párrafos, imágenes, etc.
+  content       Json
+  mainImageUrl  String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+  
+  comments Comment[]
+}
+
+model Category {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  name      String
+  
+  // Para subcategorías (ej. "Europa" es padre de "España")
+  parent    Category?  @relation("SubCategories", fields: [parentId], references: [id])
+  parentId  String?
+  children  Category[] @relation("SubCategories")
+  
+  posts     Post[]
+}
+
+model Comment {
+  id            String   @id @default(cuid())
+  content       String
+  authorName    String
+  authorEmail   String
+  createdAt     DateTime @default(now())
+  
+  post          Post     @relation(fields: [postId], references: [id])
+  postId        String
+  
+  // Para comentarios anidados
+  parent        Comment? @relation("CommentReplies", fields: [parentCommentId], references: [id])
+  parentCommentId String?
+  replies       Comment[] @relation("CommentReplies")
+}
+
+// Modelo de usuario básico para futuras funcionalidades de administración
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  // El hash de la contraseña se guardaría aquí
+  password  String
+  createdAt DateTime @default(now())
+}

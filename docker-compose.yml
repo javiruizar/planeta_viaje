@@ -1,0 +1,49 @@
+# docker-compose.yml
+
+# Se especifica la versión de la sintaxis de Docker Compose que se está utilizando.
+# La versión '3.8' es una versión moderna y estable.
+version: '3.8'
+
+# La sección 'services' es donde se definen los diferentes contenedores (servicios)
+# que compondrán nuestra aplicación. En este caso, solo tenemos uno: 'postgres'.
+services:
+  # 'postgres' es el nombre que le damos a nuestro servicio de base de datos.
+  postgres:
+    # 'image' especifica la imagen de Docker que se usará para crear el contenedor.
+    # 'postgres:15-alpine' es una imagen oficial de PostgreSQL, versión 15, sobre
+    # una base ligera de Alpine Linux, lo que la hace más pequeña y eficiente.
+    image: postgres:15-alpine
+
+    # 'container_name' le da un nombre fácil de recordar a nuestro contenedor una vez que se esté ejecutando.
+    container_name: planeta_viaje_db
+
+    # 'environment' se usa para establecer variables de entorno dentro del contenedor.
+    # La imagen de PostgreSQL utiliza estas variables específicas para la configuración inicial.
+    environment:
+      POSTGRES_USER: user_planeta      # Define el nombre de usuario para la base de datos.
+      POSTGRES_PASSWORD: password_planeta # Define la contraseña para ese usuario.
+      POSTGRES_DB: db_planeta          # Crea una base de datos con este nombre al iniciar.
+
+    # 'ports' mapea un puerto de nuestra máquina (host) a un puerto dentro del contenedor.
+    # Se expone el puerto 5432 del contenedor (puerto por defecto de PostgreSQL)
+    # al puerto 5432 de nuestra máquina. Así, podemos conectarnos a la base de datos
+    # desde nuestra aplicación local en 'localhost:5432'.
+    ports:
+      - "5432:5432"
+
+    # 'volumes' se usa para persistir datos. Sin esto, los datos de la base de datos
+    # se perderían cada vez que el contenedor se detuviera o reiniciara.
+    volumes:
+      # Esto mapea el directorio '/var/lib/postgresql/data' dentro del contenedor
+      # (donde PostgreSQL guarda sus datos) a un volumen gestionado por Docker llamado 'postgres-data'.
+      - postgres-data:/var/lib/postgresql/data
+
+    # 'restart' define la política de reinicio del contenedor.
+    # 'unless-stopped' significa que el contenedor se reiniciará automáticamente
+    # (por ejemplo, si el sistema se reinicia), a menos que lo detengamos manualmente.
+    restart: unless-stopped
+
+# La sección 'volumes' es donde se declaran los volúmenes que Docker gestionará.
+# Esto permite que los datos persistan de forma segura fuera del ciclo de vida del contenedor.
+volumes:
+  postgres-data:
