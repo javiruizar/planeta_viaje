@@ -20,6 +20,7 @@ interface PostCardProps {
   excerpt: string;
   imageUrl: string;
   slug: string;
+  createdAt: string;
 }
 
 /**
@@ -30,7 +31,7 @@ interface PostCardProps {
  * @param {PostCardProps} props - Las propiedades que recibe el componente, desestructuradas para un uso más fácil.
  * @returns {React.ReactElement} El elemento JSX que representa la tarjeta del post.
  */
-const PostCard = ({ title, excerpt, imageUrl, slug }: PostCardProps) => {
+const PostCard = ({ title, excerpt, imageUrl, slug, createdAt }: PostCardProps) => {
   return (
     // El contenedor principal de la tarjeta. Es un enlace que lleva al post completo.
     // Las clases de Tailwind le dan un borde, sombra, esquinas redondeadas y un efecto de transición.
@@ -50,6 +51,14 @@ const PostCard = ({ title, excerpt, imageUrl, slug }: PostCardProps) => {
         
         {/* Título del post. */}
         <h3 className="text-2xl font-bold mb-2">{title}</h3>
+        {/*
+          Fecha de publicación del post.
+          - Se muestra debajo del título, en un tamaño más pequeño y color suave.
+          - Se formatea a "D MMMM YYYY" en español para mayor claridad.
+        */}
+        <p className="text-sm text-blue-500 mb-2">
+          {new Date(createdAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </p>
         
         {/* Extracto o resumen del post. */}
         <p className="text-gray-700 dark:text-gray-300 mb-4">{excerpt}</p>

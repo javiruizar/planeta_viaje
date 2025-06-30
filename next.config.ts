@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'planeta-viaje.s3.eu-west-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+
     ],
   },
 };

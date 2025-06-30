@@ -21,7 +21,11 @@ export interface Post {
  * 
  * @type {Post[]}
  */
-export const mockPosts: Post[] = [
+// [Eliminado] mockPosts: Los datos de ejemplo han sido retirados. Ahora los posts reales vienen de la base de datos mediante Prisma y las funciones de src/lib/posts.ts.
+// Si necesitas datos de ejemplo para pruebas, usa la base de datos y el script de seeding.
+//
+// ⚠️ IMPORTANTE: No usar más mockPosts en producción ni en el frontend. Usa siempre la base de datos para mantener la coherencia de la aplicación.
+
   {
     title: "Aventura en las Montañas de Kioto",
     excerpt: "Descubre los templos ocultos y los senderos serenos en las afueras de la antigua capital de Japón.",
