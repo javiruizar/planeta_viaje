@@ -3,6 +3,7 @@
 // Se importa React para crear el componente y Link de Next.js para la navegación.
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 /**
  * @description
@@ -23,7 +24,7 @@ import Link from 'next/link';
 const Logo = () => {
   return (
     // Este div centra el logo en la página y le da espacio vertical (padding).
-    <div className="py-4 text-center">
+<div className="flex bg-agua-claro justify-center py-0">
       
       {/* 
         El componente Link de Next.js se encarga de la navegación sin recargar la página.
@@ -32,7 +33,12 @@ const Logo = () => {
         directamente al componente Link, y ya no se necesita una etiqueta <a> anidada.
       */}
       <Link href="/" className="text-4xl font-bold text-blue-800 hover:text-blue-600 transition-colors">
-        Planeta Viaje
+      <Image src="https://planeta-viaje.s3.eu-west-1.amazonaws.com/planeta-viaje-logo-new-removebg-preview.png" 
+      alt="Logo de Planeta Viaje" 
+      width={496} 
+      height={267} 
+      className="w-48 h-48" 
+      />
       </Link>
     </div>
   );

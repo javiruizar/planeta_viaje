@@ -16,6 +16,7 @@ import { prisma } from './prisma';
  * Solo expone los campos necesarios para el frontend.
  */
 export interface PostDTO {
+  id: string;
   slug: string;
   title: string;
   excerpt: string;
@@ -35,6 +36,7 @@ export async function getAllPosts(): Promise<PostDTO[]> {
   const posts = await prisma.post.findMany({
     orderBy: { createdAt: 'desc' },
     select: {
+      id: true,
       slug: true,
       title: true,
       excerpt: true,
@@ -59,6 +61,7 @@ export async function getPostBySlug(slug: string): Promise<PostDTO | null> {
   const post = await prisma.post.findUnique({
     where: { slug },
     select: {
+      id: true,
       slug: true,
       title: true,
       excerpt: true,

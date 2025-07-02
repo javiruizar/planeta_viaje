@@ -7,7 +7,7 @@ Este plan detalla los pasos para mejorar la experiencia visual, la estructura y 
 ## 1. Colores y Estética "Verano/Vacaciones"
 - **Objetivo:** Dar a la web un aire veraniego y vacacional usando una paleta de azul agua y amarillo arena de playa.
 - **Acciones:**
-  1. Definir los colores exactos (ejemplo: azul agua `#22d3ee`, amarillo arena `#ffe066`).
+  1. Definir los colores exactos (ejemplo: azul agua `#8ad7e3`, amarillo arena `#ffe478`).
   2. Personalizar el tema de Tailwind en `tailwind.config.js` para incluir estos colores como primarios.
   3. Reemplazar en todos los componentes y clases Tailwind los colores azules oscuros actuales por los nuevos.
   4. Aplicar el amarillo como acento en botones, enlaces, fondos y detalles decorativos.
@@ -49,7 +49,16 @@ Este plan detalla los pasos para mejorar la experiencia visual, la estructura y 
 
 ---
 
-## 4. Mejoras UX/UI y Detalles
+## 4. Funcionalidad avanzada de comentarios (pendiente)
+- **Objetivo:** Permitir responder a comentarios y borrar comentarios solo si el usuario es el autor.
+- **Acciones futuras:**
+  1. Añadir soporte para respuestas a comentarios (estructura en árbol o anidada).
+  2. Añadir botón de eliminar comentario visible solo para el autor.
+  3. Implementar validación de usuario (login, autenticación y asociación de comentarios al usuario).
+  4. Añadir validaciones backend para asegurar que solo el autor puede borrar/comentar.
+- **Notas:** Esta parte requiere implementar un sistema de usuarios y login, que se abordará en una fase posterior.
+
+## 5. Mejoras UX/UI y Detalles
 - **Objetivo:** Pulir la experiencia y la coherencia visual.
 - **Acciones:**
   1. Añadir mensajes vacíos amigables en comentarios y posts.

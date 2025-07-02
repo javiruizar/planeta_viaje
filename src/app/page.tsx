@@ -43,6 +43,7 @@ export default async function Home() {
         - `gap-8`: Añade un espacio de 8 unidades (2rem) entre cada elemento de la rejilla.
         - `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`: Define el número de columnas según el tamaño de pantalla.
       */}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {/*
           Si hay posts, los mostramos usando PostCard. Si no, mostramos un mensaje.
@@ -50,7 +51,7 @@ export default async function Home() {
           - `{...post}`: Pasamos todas las props necesarias al componente PostCard.
         */}
         {posts.length > 0 ? (
-          posts.map((post) => (
+          posts.slice(0, 3).map((post) => (
             <PostCard key={post.slug} {...post} />
           ))
         ) : (

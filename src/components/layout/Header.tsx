@@ -25,7 +25,7 @@ const Header = () => {
     // La etiqueta <header> define el contenedor principal del encabezado.
     // Las clases de Tailwind CSS le dan un fondo gris claro, un poco de padding,
     // y centran el texto con un tamaño y color específicos.
-    <header className="bg-gray-100 p-2 text-center text-sm text-gray-600">
+    <header className="bg-arena-claro p-2 text-center text-sm text-gray-600">
       
       {/* Este div actúa como un contenedor centrado que se adapta al ancho de la pantalla.
           'flex', 'justify-between' y 'items-center' son clases de Flexbox para alinear

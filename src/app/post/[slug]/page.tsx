@@ -5,6 +5,8 @@ import Image from 'next/image';
 // Importamos la función que obtiene un post real desde la base de datos por su slug.
 import { getPostBySlug } from '@/lib/posts';
 import { notFound } from 'next/navigation';
+// Importamos los componentes de comentarios desde el barril
+import { CommentsList, CommentForm } from '@/components/comments';
 
 /**
  * @description
@@ -51,6 +53,26 @@ export default async function PostPage({ params }: { params: { slug: string } })
       <div className="prose dark:prose-invert max-w-none">
         <p>{post.content}</p>
       </div>
+      {/* --- Sección de comentarios --- */}
+      {/*
+        CommentsList: muestra la lista de comentarios asociados a este post.
+        - Recibe el postId como prop (en este caso, post.id).
+        - En la versión final, obtendrá los comentarios desde la API.
+        - Por ahora, se puede pasar una lista simulada o dejarlo vacío.
+      */}
+      <section className="mt-12">
+        <h2 className="text-2xl font-bold mb-4">Comentarios</h2>
+        <CommentsList postId={post.id} />
+
+        {/*
+          CommentForm: formulario para añadir un nuevo comentario.
+          - Recibe el postId como prop para asociar el comentario al post correcto.
+          - Valida que el comentario tenga al menos 14 caracteres.
+          - Muestra mensajes de error/éxito.
+        */}
+        <CommentForm postId={post.id} />
+      </section>
     </article>
   );
 }
+

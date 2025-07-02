@@ -1,3 +1,4 @@
+import './globals.css'
 // src/app/layout.tsx
 
 // Se importa 'Metadata' de Next.js para definir los metadatos de la página.
@@ -5,7 +6,7 @@ import type { Metadata } from 'next';
 // Se importa la fuente 'Inter' de Google Fonts a través de Next.js para optimizar su carga.
 import { Inter } from 'next/font/google';
 // Se importan los estilos globales de la aplicación.
-import './globals.css';
+
 
 // Se importan los componentes de layout que hemos creado.
 // El alias '@/' se configura por defecto en Next.js para apuntar a la carpeta 'src'.

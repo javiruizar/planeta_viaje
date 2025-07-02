@@ -20,23 +20,26 @@ const Footer = () => {
   return (
     // La etiqueta <footer> es el contenedor principal. Las clases de Tailwind le dan
     // un fondo gris oscuro, texto blanco, un padding generoso y un margen superior.
-    <footer className="bg-gray-800 text-white p-8 mt-12">
+    <footer className="bg-agua-claro text-black p-4 mt-2">
 
       {/* Este div centra el contenido del pie de página. */}
       <div className="container mx-auto text-center">
 
-        {/* Párrafo para el texto de copyright. Muestra el año actual dinámicamente. */}
-        <p>&copy; {new Date().getFullYear()} Planeta Viaje. Todos los derechos reservados.</p>
 
         {/* Contenedor para los enlaces a páginas secundarias. 'mt-4' añade un margen superior. */}
         <div className="mt-4">
 
           {/* Enlaces a páginas informativas. 'px-3' les da espaciado horizontal y
               'hover:text-yellow-400' cambia su color al pasar el ratón. */}
-          <a href="/about" className="px-3 hover:text-yellow-400 transition-colors">Sobre nosotros</a>
-          <a href="/contact" className="px-3 hover:text-yellow-400 transition-colors">Contacto</a>
-          <a href="/privacy" className="px-3 hover:text-yellow-400 transition-colors">Política de Privacidad</a>
+          <a href="/about" className="px-3 hover:bg-agua-oscuro hover:text-arena-oscuro transition-colors">Sobre nosotros</a>
+          <a href="/contact" className="px-3 hover:bg-agua-oscuro hover:text-arena-oscuro transition-colors">Contacto</a>
+          <a href="/privacy" className="px-3 hover:bg-agua-oscuro hover:text-arena-oscuro transition-colors">Política de Privacidad</a>
         </div>
+
+        {/* Párrafo para el texto de copyright. Muestra el año actual dinámicamente. */}
+
+        <p>&copy; {new Date().getFullYear()} Planeta Viaje. Todos los derechos reservados.</p>
+
       </div>
     </footer>
   );
