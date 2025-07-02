@@ -3,6 +3,7 @@
 // Se importa React para crear el componente y Link de Next.js para la navegación.
 import React from 'react';
 import Link from 'next/link';
+import Logo from './Logo';
 
 /**
  * @description
@@ -39,6 +40,7 @@ const MainMenu = () => {
 
         <Link href="/category/europa" className="px-4 py-2 bg-agua-claro rounded hover:bg-agua-oscuro transition-colors">Europa</Link>
         <Link href="/category/asia" className="px-4 py-2 bg-agua-claro rounded hover:bg-agua-oscuro transition-colors">Asia</Link>
+        <Logo />
         <Link href="/category/africa" className="px-4 py-2 bg-agua-claro rounded hover:bg-agua-oscuro transition-colors">África</Link>
         <Link href="/category/america" className="px-4 py-2 bg-agua-claro rounded hover:bg-agua-oscuro transition-colors">América</Link>
         <Link href="/category/oceania" className="px-4 py-2 bg-agua-claro rounded hover:bg-agua-oscuro transition-colors">Oceanía</Link>

@@ -34,13 +34,16 @@ const Header = () => {
         
         {/* Contenedor para los enlaces a las secciones destacadas. */}
         <div>
+          
           {/* Cada <a> es un enlace. 'px-2' añade espacio a los lados y 
               'hover:text-blue-600' cambia el color del texto al pasar el ratón por encima. */}
           <a href="#" className="px-2 hover:text-blue-600">Top España</a>
-          <a href="#" className="px-2 hover:text-blue-600">Top Europa</a>
+          
           <a href="#" className="px-2 hover:text-blue-600">Top Asia</a>
         </div>
-
+<div>
+          <a href="#" className="px-2 hover:text-blue-600">Top Europa</a>
+        </div>
         {/* Contenedor para los futuros iconos de redes sociales. */}
         <div>
           <span>Iconos de Redes Sociales</span>

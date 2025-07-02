@@ -85,7 +85,7 @@ export default function RootLayout({
           <Header />
           
           {/* Se renderiza el componente del logo. */}
-          <Logo />
+          {/* <Logo /> */}
           
           {/* Se renderiza el menú de navegación principal. */}
           <MainMenu />

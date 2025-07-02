@@ -24,7 +24,7 @@ import Image from 'next/image';
 const Logo = () => {
   return (
     // Este div centra el logo en la página y le da espacio vertical (padding).
-<div className="flex bg-agua-claro justify-center py-0">
+<div className="flex justify-center py-0">
       
       {/* 
         El componente Link de Next.js se encarga de la navegación sin recargar la página.
