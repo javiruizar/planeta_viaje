@@ -93,7 +93,7 @@ const CommentsList: React.FC<CommentsListProps> = ({ postId }) => {
       {comments.map((comment) => (
         <div
           key={comment.id}
-          className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
+          className="bg-gray-200 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
         >
           {/* Cabecera del comentario: autor y fecha */}
           <div className="flex items-center justify-between mb-2">
