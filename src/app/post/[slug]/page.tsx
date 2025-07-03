@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import { CommentsList, CommentForm } from '@/components/comments';
 // Importamos el componente de publicidad
 import AdBox from '@/components/ads/AdBox';
+import Header from '@/components/layout/Header';
 
 /**
  * @description
@@ -27,9 +28,10 @@ import AdBox from '@/components/ads/AdBox';
  * @param {{ params: { slug: string } }} props - Next.js pasa automáticamente un objeto `params` con el slug.
  * @returns {Promise<React.ReactElement | void>} El JSX de la página del post o una página 404 si no se encuentra.
  */
+
 export default async function PostPage({ params }: { params: { slug: string } }) {
   // Obtenemos el slug de los parámetros de la URL.
-  const { slug } = params;
+  const { slug } = await params;
 
   // Buscamos el post real en la base de datos usando la función getPostBySlug.
   // Esta función está tipada y documentada en src/lib/posts.ts
@@ -42,16 +44,19 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
   // Si encontramos el post, renderizamos su contenido.
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="w-full">
+    <Header backgroundImage={post.imageUrl}/>  
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      
       {/* Contenedor principal con grid para escritorio */}
       <div className="lg:grid lg:grid-cols-6 lg:gap-8">
         {/* Columna principal: Contenido del post */}
         <article className="lg:col-span-4">
           {/* Título del post */}
-          <h1 className="text-4xl font-extrabold text-center mb-6">{post.title}</h1>
+          <h1 className="text-4xl font-extrabold mb-6">{post.title}</h1>
 
           {/* Contenedor para la imagen de portada */}
-          <div className="relative h-96 w-full mb-8 rounded-lg overflow-hidden shadow-lg">
+          {/* <div className="relative h-96 w-full mb-8 rounded-lg overflow-hidden shadow-lg">
             <Image 
               src={post.imageUrl} 
               alt={`Imagen de portada para ${post.title}`} 
@@ -59,16 +64,25 @@ export default async function PostPage({ params }: { params: { slug: string } })
               objectFit="cover" 
               priority
             />
-          </div>
+          </div> */}
 
           {/* Contenido del post con estilos de tipografía mejorados */}
           <div className="prose dark:prose-invert max-w-none">
             <p className="text-lg leading-relaxed">{post.content}</p>
           </div>
+          <section className="mt-12">
+        <div className="mx-auto">
+          <h2 className="text-2xl font-bold mb-6">Comentarios</h2>
+          <div className="space-y-6">
+            <CommentsList postId={post.id} />
+            <CommentForm postId={post.id} />
+          </div>
+        </div>
+      </section>
         </article>
 
         {/* Columna lateral: Anuncios */}
-        <aside className="lg:col-span-2 space-y-6 mt-12 lg:mt-0">
+        <aside className="lg:col-span-2 space-y-6 mt-12 lg:mt-0 lg:ml-4 lg:px-2">
           {/* Espacio para publicidad */}
           {/* Descomentar la siguiente línea para mostrar publicidad */}
           <AdBox />
@@ -81,15 +95,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
         </aside>
       </div>
       {/* Sección de comentarios - Ocupa todo el ancho */}
-      <section className="mt-12 lg:col-span-full">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6">Comentarios</h2>
-          <div className="space-y-6">
-            <CommentsList postId={post.id} />
-            <CommentForm postId={post.id} />
-          </div>
-        </div>
-      </section>
+    </main>
     </div>
   );
 }

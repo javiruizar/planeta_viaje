@@ -24,7 +24,7 @@ import Image from 'next/image';
 const Logo = () => {
   return (
     // Este div centra el logo en la página y le da espacio vertical (padding).
-<div className="flex justify-center py-0">
+<div className="flex justify-center py-0 hover:scale-110 transition-transform">
       
       {/* 
         El componente Link de Next.js se encarga de la navegación sin recargar la página.
@@ -37,7 +37,7 @@ const Logo = () => {
       alt="Logo de Planeta Viaje" 
       width={496} 
       height={267} 
-      className="w-48 h-48" 
+      className="w-40 h-40" 
       />
       </Link>
     </div>

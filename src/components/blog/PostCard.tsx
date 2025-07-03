@@ -35,8 +35,9 @@ const PostCard = ({ title, excerpt, imageUrl, slug, createdAt }: PostCardProps) 
   return (
     // El contenedor principal de la tarjeta. Es un enlace que lleva al post completo.
     // Las clases de Tailwind le dan un borde, sombra, esquinas redondeadas y un efecto de transición.
-    <Link href={`/post/${slug}`} className="block border rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden bg-white/75">
-      
+    <Link href={`/post/${slug}`} 
+    className="block border rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden hover:scale-105 transition-transform bg-white/80">
+      {/* hover:scale-110 transition-transform */}
       {/* Contenedor para la imagen del post. */}
       <div className="relative h-48 w-full">
         {/* 

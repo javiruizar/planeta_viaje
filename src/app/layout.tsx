@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 // Se importa la fuente 'Inter' de Google Fonts a través de Next.js para optimizar su carga.
 import { Inter } from 'next/font/google';
 // Se importan los estilos globales de la aplicación.
-
+import { usePathname } from "next/navigation";
 
 // Se importan los componentes de layout que hemos creado.
 // El alias '@/' se configura por defecto en Next.js para apuntar a la carpeta 'src'.
@@ -25,6 +25,8 @@ import Footer from '@/components/layout/Footer';
  * - `variable: '--font-inter'`: Se asigna la fuente a una variable CSS llamada `--font-inter`.
  *   Esto nos permite usar `var(--font-inter)` en nuestros ficheros CSS.
  */
+
+
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 /**
@@ -81,14 +83,12 @@ export default function RootLayout({
             Esto es útil para que el footer se quede abajo incluso en páginas con poco contenido.
         */}
         <div className="flex flex-col min-h-screen">
-          {/* Se renderiza el componente del encabezado superior. */}
-          <Header />
-          
+                   
           {/* Se renderiza el componente del logo. */}
           {/* <Logo /> */}
           
           {/* Se renderiza el menú de navegación principal. */}
-          <MainMenu />
+            {/* <MainMenu /> */}
 
           {/*
             La etiqueta <main> es semántica y define el contenido principal de la página.
@@ -97,10 +97,8 @@ export default function RootLayout({
             - `container mx-auto`: Centra el contenido y le da un ancho máximo.
             - `px-4 py-8`: Añade padding horizontal y vertical.
           */}
-          <main className="flex-grow container mx-auto px-4 py-8">
             {/* Aquí es donde Next.js renderizará el contenido de cada página específica. */}
             {children}
-          </main>
 
           {/* Se renderiza el componente del pie de página. */}
           <Footer />

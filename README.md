@@ -96,96 +96,33 @@ planeta_viaje/
 
 5. **Levantar entorno de desarrollo**
 
-   ```bash
-   pnpm dev
-   ```
-
-   Abre <http://localhost:3000> para ver la aplicación.
-
----
-
-## Variables de entorno
-
-| Nombre | Descripción |
-| ------ | ----------- |
-| `DATABASE_URL` | Cadena de conexión Postgres. Ej.: `postgresql://user:pass@localhost:5432/planeta_viaje` |
-| `NODE_ENV` | Entorno (`development` \| `production`). |
-
-Añade más variables cuando se integren APIs externas (p.ej. Cloudinary, SendGrid, etc.).
-
----
-
-## Flujo de desarrollo
-
-1. Crea una rama a partir de `main`.
-2. Implementa la funcionalidad con **comentarios detallados** en cada bloque de código (requisito didáctico del proyecto).
-3. Abre un Pull Request y solicita _code review_.
-4. Una vez aprobado, haz _merge_ a `main`.
-
----
-
-## Personalización de colores
-
-Los colores de marca se definen como **variables CSS** en `src/app/globals.css` dentro de `:root`:
-
-```css
-:root {
-  --color-agua-claro:  oklch(95.6% 0.045 203.388);
-  --color-agua-oscuro: oklch(82.8% 0.111 230.318);
-  --color-arena-claro: oklch(96.2% 0.059 95.617);
-  --color-arena-oscuro: oklch(87.9% 0.169 91.605);
-}
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Uso en componentes:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```jsx
-<div className="bg-[color:var(--color-agua-claro)] text-[color:var(--color-arena-oscuro)]">
-  ¡Hola mundo!
-</div>
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-También se han creado utilidades abreviadas (`bg-agua-claro`, `hover:bg-agua-oscuro`, etc.) en el mismo fichero.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
----
+## Learn More
 
-## Scripts disponibles
+To learn more about Next.js, take a look at the following resources:
 
-| Comando | Acción |
-| ------- | ------ |
-| `pnpm dev` | Servidor de desarrollo en <http://localhost:3000>. |
-| `pnpm build` | Compila la app para producción. |
-| `pnpm start` | Inicia el servidor Next.js en modo producción. |
-| `pnpm prisma studio` | UI para inspeccionar la base de datos. |
-| `pnpm lint` | Ejecuta ESLint. |
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
----
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Despliegue
+## Deploy on Vercel
 
-Se recomienda **Vercel**. Pasos rápidos:
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-1. Crear proyecto en Vercel y conectar este repositorio.
-2. Configurar `DATABASE_URL` en _Environment Variables_.
-3. Vercel detectará automáticamente Next.js y Tailwind.
-4. Tras el primer despliegue, ejecutar migraciones:
-   - Opción 1: usar **Vercel Postgres**.
-   - Opción 2: ejecutar `prisma migrate deploy` en un _Post-Deploy Hook_.
-
----
-
-## Roadmap
-
-- [ ] CRUD completo de posts (admin).
-- [ ] Etiquetas y categorías.
-- [ ] Paginación o infinite scroll.
-- [ ] Autenticación de usuarios (NextAuth.js).
-- [ ] Comentarios y reacciones.
-- [ ] Optimización SEO y Open Graph.
-
----
-
-## Licencia
-
-MIT © 2025 Planeta Viaje
-
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
