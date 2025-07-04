@@ -46,10 +46,9 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({
   };
 
   // Estilos para móviles
-  const mobileStyle: React.CSSProperties = {
-    backgroundAttachment: 'scroll',
-  };
-
+  // const mobileStyle: React.CSSProperties = {
+  //   backgroundAttachment: 'scroll',
+  // };
   return (
     <div className={`relative min-h-screen ${className}`}>
       {/* Capa de fondo fijo */}

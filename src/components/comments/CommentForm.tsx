@@ -71,26 +71,39 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, onCommentAdded }) => 
     setLoading(true);
     try {
       // Llamada real a la API para crear el comentario
-      const res = await fetch('/api/comments', {
+      const response = await fetch('/api/comments', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ postId, content, authorName }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          postId,
+          content,
+          authorName,
+        }),
       });
-      if (!res.ok) {
-        const data = await res.json();
+
+      const data = await response.json();
+
+      if (!response.ok) {
         throw new Error(data.error || 'Error al enviar el comentario');
       }
+
       setSuccess('¡Comentario enviado correctamente!');
       setContent('');
       setAuthorName('');
       // Refresca la lista de comentarios si hay callback o window.refreshComments
       if (onCommentAdded) {
         onCommentAdded();
-      } else if (typeof window !== 'undefined' && (window as any).refreshComments) {
-        (window as any).refreshComments();
+      } else if (typeof window !== 'undefined') {
+        const win = window as unknown as { refreshComments?: () => void };
+        if (win.refreshComments) {
+          win.refreshComments();
+        }
       }
-    } catch (err: any) {
-      setError(err.message || 'Ocurrió un error al enviar el comentario.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Error al enviar el comentario';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

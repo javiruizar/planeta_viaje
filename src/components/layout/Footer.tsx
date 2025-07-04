@@ -20,7 +20,7 @@ const Footer = () => {
   return (
     // La etiqueta <footer> es el contenedor principal. Las clases de Tailwind le dan
     // un fondo gris oscuro, texto blanco, un padding generoso y un margen superior.
-    <footer className="bg-agua-claro text-black p-4 mt-2">
+    <footer className="bg-gray-500/80 text-white p-4 mt-2">
 
       {/* Este div centra el contenido del pie de página. */}
       <div className="container mx-auto text-center">

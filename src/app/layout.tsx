@@ -6,13 +6,6 @@ import type { Metadata } from 'next';
 // Se importa la fuente 'Inter' de Google Fonts a través de Next.js para optimizar su carga.
 import { Inter } from 'next/font/google';
 // Se importan los estilos globales de la aplicación.
-import { usePathname } from "next/navigation";
-
-// Se importan los componentes de layout que hemos creado.
-// El alias '@/' se configura por defecto en Next.js para apuntar a la carpeta 'src'.
-import Header from '@/components/layout/Header';
-import Logo from '@/components/layout/Logo';
-import MainMenu from '@/components/layout/MainMenu';
 import Footer from '@/components/layout/Footer';
 
 /**

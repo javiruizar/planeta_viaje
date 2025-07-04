@@ -1,7 +1,6 @@
 // src/components/layout/Header.tsx
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 import Logo from './Logo';
 import DropdownMenu from './DropdownMenu';
