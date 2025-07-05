@@ -1,4 +1,5 @@
 // src/app/post/[slug]/page.tsx
+export const dynamic = 'force-dynamic';
 
 // Importamos React para el tipo JSX
 import React from 'react';
