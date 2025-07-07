@@ -11,7 +11,7 @@ import { notFound } from 'next/navigation';
 // Importamos los componentes de comentarios desde el barril
 import { CommentsList, CommentForm } from '@/components/comments';
 // Importamos el componente de publicidad
-import AdBox from '@/components/ads/AdBox';
+import { MondoAdBox, OtherAddBox } from '@/components/ads/AdBox';
 import Header from '@/components/layout/Header';
 
 import { Metadata } from 'next';
@@ -86,7 +86,8 @@ export default async function PostPage({
           </article>
 
           <aside className="lg:col-span-2 space-y-6 mt-12 lg:mt-0 lg:ml-4 lg:px-2">
-            <AdBox />
+            <MondoAdBox />
+            <OtherAddBox />
             <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
               <h3 className="font-medium text-gray-900 mb-2">Artículos relacionados</h3>
               <p className="text-sm text-gray-500">Próximamente más contenido...</p>
