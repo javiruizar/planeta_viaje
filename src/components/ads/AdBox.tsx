@@ -10,7 +10,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-function MondoAdBox () {
+const MondoAdBox = () => {
   return (
     <aside 
       className="sticky top-4 w-full p-4 bg-gray-50 rounded-lg border border-gray-200"
@@ -26,7 +26,7 @@ function MondoAdBox () {
     </aside>
   );
 };
-function OtherAddBox () {
+const OtherAddBox = () => {
   return (
     <aside>
       <Link href="https://heymondo.es/?utm_medium=Afiliado&utm_source=PLANETAVIAJE&utm_campaign=PRINCIPAL&cod_descuento=PLANETAVIAJE&ag_campaign=ENTRADA&agencia=jz7colDrqhdjcwcCpMfKT8ri24iZyNRSuB5OOWWG&redirect=TEMPORAL">
@@ -38,4 +38,4 @@ function OtherAddBox () {
   )
 }
 
-export { MondoAdBox, OtherAddBox};
+export { MondoAdBox, OtherAddBox };

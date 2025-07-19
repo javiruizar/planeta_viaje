@@ -64,7 +64,7 @@ export default async function PostPage({
 
   return (
     <div className="w-full">
-      <Header backgroundImage={post.imageUrl} />
+      <Header backgroundImage={post.imageUrl} isPost />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="lg:grid lg:grid-cols-6 lg:gap-8">
           <article className="lg:col-span-4">

@@ -7,9 +7,10 @@ import DropdownMenu from './DropdownMenu';
 
 type HeaderProps = {
   backgroundImage: string;
+  isPost?: boolean;
 };
 
-const Header = ({ backgroundImage }: HeaderProps) => {
+const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
   return (
     <header className="relative h-96 w-full overflow-hidden">
       <div className="absolute inset-0 h-full w-full">
@@ -36,13 +37,16 @@ const Header = ({ backgroundImage }: HeaderProps) => {
             <DropdownMenu />
           </div>
 
-          {/* Logo centrado */}
-          <div className="absolute left-1/2 transform -translate-x-1/2">
-            <Logo />
+          {/* Logo - Centrado por defecto, en la esquina superior derecha en posts en móvil */}
+          <div className={`absolute md:left-1/2 md:transform md:-translate-x-1/2 right-4 top-4 md:right-auto md:top-auto`}>
+            {/* Logo - Tamaño del logo */}
+            <div className={isPost ? 'w-16 h-16 md:w-auto md:h-auto' : ''}>
+              <Logo className="w-20 h-20 md:w-30 md:h-30"/>
+            </div>
           </div>
 
-          {/* Iconos de redes sociales */}
-          <div className="absolute flex text-white items-center space-x-4 top-4 right-16 z-10">
+          {/* Iconos de redes sociales - Ocultos en móvil, visibles en desktop */}
+          <div className="absolute hidden md:flex text-white items-center space-x-4 top-4 right-16 z-10">
             <a 
               href="https://facebook.com" 
               target="_blank" 
