@@ -13,6 +13,8 @@ import { CommentsList, CommentForm } from '@/components/comments';
 // Importamos el componente de publicidad
 import { MondoAdBox, OtherAddBox } from '@/components/ads/AdBox';
 import Header from '@/components/layout/Header';
+// Importamos el renderizador MDX
+import MdxRenderer from '@/lib/mdx-renderer';
 
 import { Metadata } from 'next';
 
@@ -71,7 +73,7 @@ export default async function PostPage({
             <h1 className="text-4xl font-extrabold mb-6">{post.title}</h1>
 
             <div className="prose dark:prose-invert max-w-none">
-              <p className="text-lg leading-relaxed">{post.content}</p>
+              <MdxRenderer content={post.content} />
             </div>
 
             <section className="mt-12">

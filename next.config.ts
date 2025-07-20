@@ -1,6 +1,23 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
+import createMDX from '@next/mdx'
+import remarkGfm from 'remark-gfm'
+import rehypeHighlight from 'rehype-highlight'
+import rehypeSanitize from 'rehype-sanitize'
+
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeHighlight, rehypeSanitize],
+  },
+})
 
 const nextConfig: NextConfig = {
+  // Configuración existente
+  experimental: {
+    mdxRs: true,
+  },
+  // Configuración de MDX
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   // Se añade la configuración de imágenes para permitir dominios externos.
   images: {
     // `remotePatterns` es la forma recomendada y más segura de autorizar dominios.
@@ -17,9 +34,8 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
-
     ],
   },
-};
+}
 
-export default nextConfig;
+export default withMDX(nextConfig)
