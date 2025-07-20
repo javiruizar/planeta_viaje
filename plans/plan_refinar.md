@@ -68,7 +68,31 @@ Este plan detalla los pasos para mejorar la experiencia visual, la estructura y 
 
 ---
 
-## 5. Validación y Refinamiento Iterativo
+## 6. Mejoras de SEO en la Base de Datos
+- **Objetivo:** Optimizar la estructura de la base de datos para mejorar el SEO y la experiencia de usuario.
+- **Acciones:**
+  1. Añadir campos para metadatos SEO:
+     - `metaTitle`: Título específico para SEO (puede diferir del título visible).
+     - `metaDescription`: Descripción para resultados de búsqueda (155-160 caracteres).
+     - `imageAltText`: Texto alternativo descriptivo para imágenes.
+     - `imageCaption`: Pie de foto visible debajo de la imagen.
+     - `imageCredits`: Créditos o atribución de la imagen.
+  2. Mejorar la estructura de contenido:
+     - `excerpt`: Resumen corto para vista previa en listados.
+     - `readingTime`: Tiempo de lectura estimado en minutos.
+  3. SEO avanzado:
+     - `canonicalUrl`: Para evitar contenido duplicado.
+     - `noindex`: Para excluir páginas específicas de los buscadores.
+  4. Redes sociales:
+     - `ogImage`: Imagen específica para compartir en redes sociales.
+     - `twitterCardType`: Tipo de tarjeta para Twitter.
+- **Beneficios esperados:**
+  - Mejor posicionamiento en buscadores.
+  - Mayor tasa de clics en resultados de búsqueda.
+  - Experiencia de usuario mejorada con metadatos enriquecidos.
+  - Contenido más compartible en redes sociales.
+
+## 7. Validación y Refinamiento Iterativo
 - **Objetivo:** Validar cada cambio con el usuario antes de implementarlo en producción.
 - **Acciones:**
   1. Revisar cada sección tras su desarrollo.

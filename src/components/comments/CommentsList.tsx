@@ -15,7 +15,7 @@
  */
 
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 // Definición del tipo Comment para claridad didáctica.
 export interface Comment {
@@ -46,7 +46,7 @@ const CommentsList: React.FC<CommentsListProps> = ({ postId }) => {
   /**
    * Función para cargar los comentarios desde la API
    */
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     setLoading(true);
     setError('');
     try {
@@ -54,12 +54,13 @@ const CommentsList: React.FC<CommentsListProps> = ({ postId }) => {
       if (!res.ok) throw new Error('Error al cargar los comentarios');
       const data = await res.json();
       setComments(data);
-    } catch (err: any) {
-      setError(err.message || 'Error desconocido');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
-  };
+  }, [postId]);
 
   // Efecto para cargar los comentarios al montar el componente o cambiar el postId
   useEffect(() => {
@@ -69,7 +70,9 @@ const CommentsList: React.FC<CommentsListProps> = ({ postId }) => {
 
   // Permite a CommentForm refrescar la lista tras añadir un comentario
   // (Se puede pasar fetchComments como prop si se desea)
-  (window as any).refreshComments = fetchComments;
+  if (typeof window !== 'undefined') {
+    (window as Window & { refreshComments?: () => void }).refreshComments = fetchComments;
+  }
 
   if (loading) {
     return <div className="text-gray-500 text-center py-4">Cargando comentarios...</div>;
@@ -93,7 +96,7 @@ const CommentsList: React.FC<CommentsListProps> = ({ postId }) => {
       {comments.map((comment) => (
         <div
           key={comment.id}
-          className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
+          className="bg-gray-200 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
         >
           {/* Cabecera del comentario: autor y fecha */}
           <div className="flex items-center justify-between mb-2">

@@ -1,55 +1,93 @@
 // src/components/layout/Header.tsx
-
-// Se importa la librería React, que es la base para crear componentes en Next.js.
 import React from 'react';
+import Image from 'next/image';
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
+import Logo from './Logo';
+import DropdownMenu from './DropdownMenu';
 
-/**
- * @description
- * Este es el componente del encabezado superior del sitio.
- * Su propósito es mostrar una barra fina en la parte más alta de la página
- * con enlaces a secciones destacadas (ej. "Top España") e iconos de redes sociales.
- * 
- * @explanation
- * - `const Header = () => { ... }`: Se define un componente funcional de React llamado `Header`.
- *   Es una función flecha que no recibe parámetros (props) y devuelve código JSX.
- * - `return ( ... )`: El JSX que se devuelve define la estructura HTML del componente.
- * - `<header>`: Es la etiqueta semántica de HTML para un encabezado.
- * - `className`: Se usa en lugar de `class` en JSX para aplicar clases de CSS. Las clases usadas
- *   son de Tailwind CSS para dar estilo al componente.
- * - `<div>`: Se usan para agrupar y estructurar el contenido.
- * - `<a>`: Son enlaces de ejemplo. Más adelante, se reemplazarán por componentes `Link` de Next.js
- *   para una navegación más eficiente.
- */
-const Header = () => {
+type HeaderProps = {
+  backgroundImage: string;
+  isPost?: boolean;
+};
+
+const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
   return (
-    // La etiqueta <header> define el contenedor principal del encabezado.
-    // Las clases de Tailwind CSS le dan un fondo gris claro, un poco de padding,
-    // y centran el texto con un tamaño y color específicos.
-    <header className="bg-arena-claro p-2 text-center text-sm text-gray-600">
+    <header className="relative h-96 w-full overflow-hidden">
+      <div className="absolute inset-0 h-full w-full">
+        <Image
+          src={backgroundImage}
+          alt="Fondo del encabezado con vista de Salamanca"
+          layout="fill"
+          objectFit="cover"
+          quality={80}
+          priority
+          className="opacity-100"
+          
+        />
+        {/* Capa de superposición oscura para mejorar la legibilidad del texto */}
+      <div className="absolute inset-0 h-full w-full bg-black/40" />
+      </div>
       
-      {/* Este div actúa como un contenedor centrado que se adapta al ancho de la pantalla.
-          'flex', 'justify-between' y 'items-center' son clases de Flexbox para alinear
-          los elementos hijos (los enlaces y los iconos) en los extremos opuestos. */}
-      <div className="container mx-auto flex justify-between items-center">
-        
-        {/* Contenedor para los enlaces a las secciones destacadas. */}
-        <div>
-          {/* Cada <a> es un enlace. 'px-2' añade espacio a los lados y 
-              'hover:text-blue-600' cambia el color del texto al pasar el ratón por encima. */}
-          <a href="#" className="px-2 hover:text-blue-600">Top España</a>
-          <a href="#" className="px-2 hover:text-blue-600">Top Europa</a>
-          <a href="#" className="px-2 hover:text-blue-600">Top Asia</a>
-        </div>
+      
+      
+      <div className="container mx-auto h-full px-4">
+        <div className="h-full flex top-1 justify-between">
+          {/* Menú de navegación izquierdo */}
+          <div className="flex space-x-4 space-y-4">
+            <DropdownMenu />
+          </div>
 
-        {/* Contenedor para los futuros iconos de redes sociales. */}
-        <div>
-          <span>Iconos de Redes Sociales</span>
+          {/* Logo - Centrado por defecto, en la esquina superior derecha en posts en móvil */}
+          <div className={`absolute md:left-1/2 md:transform md:-translate-x-1/2 right-4 top-4 md:right-auto md:top-auto`}>
+            {/* Logo - Tamaño del logo */}
+            <div className={isPost ? 'w-16 h-16 md:w-auto md:h-auto' : ''}>
+              <Logo className="w-20 h-20 md:w-30 md:h-30"/>
+            </div>
+          </div>
+
+          {/* Iconos de redes sociales - Ocultos en móvil, visibles en desktop */}
+          <div className="absolute hidden md:flex text-white items-center space-x-4 top-4 right-16 z-10">
+            <a 
+              href="https://facebook.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-blue-600 transition-colors"
+              aria-label="Facebook"
+            >
+              <FaFacebook size={24} />
+            </a>
+            <a 
+              href="https://twitter.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-blue-400 transition-colors"
+              aria-label="Twitter"
+            >
+              <FaTwitter size={24} />
+            </a>
+            <a 
+              href="https://instagram.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className=" hover:text-pink-600 transition-colors"
+              aria-label="Instagram"
+            >
+              <FaInstagram size={24} />
+            </a>
+            <a 
+              href="https://youtube.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-red-600 transition-colors"
+              aria-label="YouTube"
+            >
+              <FaYoutube size={24} />
+            </a>
+          </div>
         </div>
       </div>
     </header>
   );
 };
 
-// Se exporta el componente `Header` para que pueda ser importado y utilizado
-// en otras partes de la aplicación, como en el layout principal.
 export default Header;

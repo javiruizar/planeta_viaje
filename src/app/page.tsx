@@ -4,7 +4,9 @@
 import PostCard from "@/components/blog/PostCard";
 // Importamos la función que obtiene los posts reales desde la base de datos.
 import { getAllPosts } from "@/lib/posts";
-
+// Importamos el componente de fondo parallax
+import ParallaxBackground from "@/components/layout/ParallaxBackground";
+import Header from "@/components/layout/Header";
 /**
  * @description
  * Componente de la página de inicio (Home). Su función es mostrar una lista con las
@@ -35,8 +37,19 @@ export default async function Home() {
   const posts = await getAllPosts();
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold mb-8 text-center">Últimas Entradas del Blog</h1>
+    <>
+    <Header backgroundImage="/images/IMG_9881.jpg"/>
+    <ParallaxBackground 
+      localImage="/images/Nueva-York-City-Hall-Park.jpg"
+      // s3Image="https://tu-bucket.s3.region.amazonaws.com/ruta/a/imagen.jpg"
+      overlay={true}
+      overlayColor="rgba(0, 0, 0, 0.4)"
+    >
+      
+      <div className="mx-auto px-4 bg-gray-500/80">
+      <section className="py-16">
+        <h1 className="text-4xl font-bold mb-12 text-center text-white ">
+          Últimas Entradas del Blog</h1>
       {/*
         Contenedor para la rejilla de posts.
         - `grid`: Activa el layout de rejilla de Tailwind CSS.
@@ -61,6 +74,9 @@ export default async function Home() {
         )}
       </div>
     </section>
+    </div>
+    </ParallaxBackground>
+    </>
   );
 }
 

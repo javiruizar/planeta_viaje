@@ -21,10 +21,10 @@ import Image from 'next/image';
  * - `NOTA`: La imagen 'planeta_viaje_logo.jpg' no se ha encontrado. Cuando esté disponible,
  *   colócala en la carpeta `public` en la raíz de tu proyecto.
  */
-const Logo = () => {
+const Logo = ({ className = '' }) => {
   return (
     // Este div centra el logo en la página y le da espacio vertical (padding).
-<div className="flex bg-agua-claro justify-center py-0">
+<div className={`flex justify-center py-0 hover:scale-110 transition-transform ${className}`}>
       
       {/* 
         El componente Link de Next.js se encarga de la navegación sin recargar la página.
@@ -33,12 +33,14 @@ const Logo = () => {
         directamente al componente Link, y ya no se necesita una etiqueta <a> anidada.
       */}
       <Link href="/" className="text-4xl font-bold text-blue-800 hover:text-blue-600 transition-colors">
-      <Image src="https://planeta-viaje.s3.eu-west-1.amazonaws.com/planeta-viaje-logo-new-removebg-preview.png" 
-      alt="Logo de Planeta Viaje" 
-      width={496} 
-      height={267} 
-      className="w-48 h-48" 
-      />
+      <Image 
+          src="https://planeta-viaje.s3.eu-west-1.amazonaws.com/planeta-viaje-logo-new-removebg-preview.png" 
+          alt="Logo de Planeta Viaje" 
+          width={496} 
+          height={267} 
+          className="w-full h-full object-contain" 
+          priority
+        />
       </Link>
     </div>
   );

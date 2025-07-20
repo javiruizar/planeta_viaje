@@ -14,7 +14,6 @@ import { PrismaClient } from '@prisma/client';
 
 // Declaración global para evitar múltiples instancias en desarrollo con hot-reload.
 declare global {
-  // eslint-disable-next-line no-var
   var prisma: PrismaClient | undefined;
 }
 

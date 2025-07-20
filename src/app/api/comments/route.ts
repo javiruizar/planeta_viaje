@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
   let body;
   try {
     body = await req.json();
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: 'El cuerpo de la petición no es un JSON válido.' }, { status: 400 });
   }
   const {postId, content, authorName } = body;
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
         createdAt: true,
       },
     });
-  } catch (err) {
+  } catch {
     return NextResponse.json({ error: 'Error al crear el comentario en base de datos.' }, { status: 500 });
   }
 
