@@ -65,21 +65,21 @@ export default async function PostPage({
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full min-h-screen overflow-x-hidden">
       <Header backgroundImage={post.imageUrl} isPost />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="lg:grid lg:grid-cols-6 lg:gap-8">
-          <article className="lg:col-span-4">
-            <h1 className="text-4xl font-extrabold mb-6">{post.title}</h1>
+          <article className="lg:col-span-4 w-full">
+            <h1 className="text-3xl sm:text-4xl font-extrabold mb-6 break-words">{post.title}</h1>
 
-            <div className="prose dark:prose-invert max-w-none">
+            <div className="prose dark:prose-invert max-w-none w-full overflow-hidden">
               <MdxRenderer content={post.content} />
             </div>
 
-            <section className="mt-12">
-              <div className="mx-auto">
+            <section className="mt-12 w-full">
+              <div className="mx-auto w-full">
                 <h2 className="text-2xl font-bold mb-6">Comentarios</h2>
-                <div className="space-y-6">
+                <div className="space-y-6 w-full">
                   <CommentsList postId={post.id} />
                   <CommentForm postId={post.id} />
                 </div>
@@ -87,10 +87,10 @@ export default async function PostPage({
             </section>
           </article>
 
-          <aside className="lg:col-span-2 space-y-6 mt-12 lg:mt-0 lg:ml-4 lg:px-2">
+          <aside className="lg:col-span-2 space-y-6 mt-12 lg:mt-0 lg:ml-4 lg:px-2 w-full">
             <MondoAdBox />
             <OtherAddBox />
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 w-full">
               <h3 className="font-medium text-gray-900 mb-2">Artículos relacionados</h3>
               <p className="text-sm text-gray-500">Próximamente más contenido...</p>
             </div>

@@ -48,3 +48,42 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Asegurar que todos los contenedores principales no tengan overflow */
+#__next {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Estilos para iframes responsivos */
+iframe {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Estilos para imágenes responsivas */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Estilos para tablas responsivas */
+table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+/* Estilos para pre y code responsivos */
+pre, code {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

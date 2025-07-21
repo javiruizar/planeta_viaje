@@ -110,47 +110,64 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, onCommentAdded }) => 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg shadow mt-8">
-      {/* Campo de texto para el comentario */}
-      <label htmlFor="comment" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-        Escribe tu comentario
-      </label>
-      <textarea
-        id="comment"
-        className="w-full border rounded p-2 mb-2 dark:bg-gray-800 dark:text-gray-100"
-        rows={3}
-        placeholder="Comparte tu opinión..."
-        value={content}
-        onChange={e => setContent(e.target.value)}
-        disabled={loading}
-      />
-      {/* Campo de email obligatorio */}
-      <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2 mt-4">
-        Tu email (obligatorio)
-      </label>
-      <input
-        id="email"
-        type="email"
-        className="w-full border rounded p-2 mb-2 dark:bg-gray-800 dark:text-gray-100"
-        placeholder="tucorreo@ejemplo.com"
-        value={authorName}
-        onChange={e => setAuthorName(e.target.value)}
-        disabled={loading}
-        required
-      />
-      {/* Mensaje de error */}
-      {error && <div className="text-red-500 text-sm mb-2">{error}</div>}
-      {/* Mensaje de éxito */}
-      {success && <div className="text-green-600 text-sm mb-2">{success}</div>}
-      {/* Botón de enviar */}
-      <button
-        type="submit"
-        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded mt-2 disabled:opacity-50"
-        disabled={loading}
-      >
-        {loading ? 'Enviando...' : 'Enviar comentario'}
-      </button>
-    </form>
+    <div className="mt-6 w-full overflow-hidden">
+      <h3 className="text-lg font-semibold mb-4">Añadir comentario</h3>
+      
+      {error && (
+        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+          {error}
+        </div>
+      )}
+      
+      {success && (
+        <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+          {success}
+        </div>
+      )}
+      
+      <form onSubmit={handleSubmit} className="space-y-4 w-full">
+        <div className="w-full">
+          <label htmlFor="authorName" className="block text-sm font-medium text-gray-700 mb-2">
+            Email *
+          </label>
+          <input
+            type="email"
+            id="authorName"
+            value={authorName}
+            onChange={(e) => setAuthorName(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="tu@email.com"
+            required
+          />
+        </div>
+        
+        <div className="w-full">
+          <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
+            Comentario *
+          </label>
+          <textarea
+            id="content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            rows={4}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical"
+            placeholder="Escribe tu comentario aquí..."
+            required
+          />
+          <div className="mt-1 text-sm text-gray-500">
+            {content.length}/140 caracteres
+          </div>
+        </div>
+        
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full sm:w-auto px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          {loading ? 'Enviando...' : 'Enviar comentario'}
+        </button>
+      </form>
+    </div>
   );
 };
 
