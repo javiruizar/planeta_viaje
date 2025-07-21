@@ -91,35 +91,55 @@ const CommentsList: React.FC<CommentsListProps> = ({ postId }) => {
   }
 
   return (
-    <div className="space-y-4 mt-6">
+    <div className="space-y-4 mt-6 w-full overflow-hidden">
       {/* Recorremos y renderizamos cada comentario */}
       {comments.map((comment) => (
         <div
           key={comment.id}
-          className="bg-gray-200 dark:bg-gray-800 rounded-lg p-4 shadow-sm"
+          className="bg-gray-200 dark:bg-gray-800 rounded-lg p-4 shadow-sm w-full break-words"
         >
-          {/* Cabecera del comentario: autor y fecha */}
-          <div className="flex items-center justify-between mb-2">
-            {/* Mostramos el autor del comentario usando el campo authorName */}
-            <span className="font-semibold text-blue-700 dark:text-blue-300">
-              {comment.authorName || 'Anónimo'}
-            </span>
-            <span className="text-xs text-gray-500">
-              {/* Fecha formateada en español */}
-              {new Date(comment.createdAt).toLocaleString('es-ES', {
-                day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
-              })}
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+            <div className="flex items-center space-x-2 mb-2 sm:mb-0">
+              <span className="font-semibold text-gray-900 dark:text-gray-100">
+                {comment.authorName || 'Anónimo'}
+              </span>
+              <span className="text-sm text-gray-500">
+                {new Date(comment.createdAt).toLocaleDateString('es-ES', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}
+              </span>
+            </div>
+            
+            {/* Botones de acción (solo para el autor en el futuro) */}
+            <div className="flex space-x-2">
+              <button
+                className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
+                onClick={() => {
+                  // TODO: Implementar edición
+                  console.log('Editar comentario:', comment.id);
+                }}
+              >
+                Editar
+              </button>
+              <button
+                className="text-sm text-red-600 hover:text-red-800 transition-colors"
+                onClick={() => {
+                  // TODO: Implementar eliminación
+                  console.log('Eliminar comentario:', comment.id);
+                }}
+              >
+                Eliminar
+              </button>
+            </div>
           </div>
-          {/* Contenido del comentario */}
-          <div className="text-gray-800 dark:text-gray-200">
+          
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
             {comment.content}
-          </div>
-          {/* Botones de editar/borrar (sólo visibles si el usuario es el autor; lógica futura) */}
-          {/* <div className="flex gap-2 mt-2">
-            <button className="text-xs text-blue-500 hover:underline">Editar</button>
-            <button className="text-xs text-red-500 hover:underline">Borrar</button>
-          </div> */}
+          </p>
         </div>
       ))}
     </div>

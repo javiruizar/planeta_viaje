@@ -22,31 +22,27 @@ const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
           quality={80}
           priority
           className="opacity-100"
-          
         />
         {/* Capa de superposición oscura para mejorar la legibilidad del texto */}
-      <div className="absolute inset-0 h-full w-full bg-black/40" />
+        <div className="absolute inset-0 h-full w-full bg-black/40" />
       </div>
       
-      
-      
-      <div className="container mx-auto h-full px-4">
-        <div className="h-full flex top-1 justify-between">
+      <div className="relative h-full w-full px-4 sm:px-6 lg:px-8">
+        <div className="h-full flex justify-between items-start pt-4">
           {/* Menú de navegación izquierdo */}
-          <div className="flex space-x-4 space-y-4">
+          <div className="flex-shrink-0">
             <DropdownMenu />
           </div>
 
-          {/* Logo - Centrado por defecto, en la esquina superior derecha en posts en móvil */}
-          <div className={`absolute md:left-1/2 md:transform md:-translate-x-1/2 right-4 top-4 md:right-auto md:top-auto`}>
-            {/* Logo - Tamaño del logo */}
-            <div className={isPost ? 'w-16 h-16 md:w-auto md:h-auto' : ''}>
-              <Logo className="w-20 h-20 md:w-30 md:h-30"/>
+          {/* Logo - Centrado en desktop, esquina superior derecha en móvil */}
+          <div className="absolute right-1/8 md:static md:transform-none md:left-auto">
+            <div className={isPost ? 'w-12 h-12 md:w-auto md:h-auto' : ''}>
+              <Logo className="w-16 h-16 md:w-24 md:h-24"/>
             </div>
           </div>
 
           {/* Iconos de redes sociales - Ocultos en móvil, visibles en desktop */}
-          <div className="absolute hidden md:flex text-white items-center space-x-4 top-4 right-16 z-10">
+          <div className="hidden md:flex text-white items-center space-x-4 flex-shrink-0">
             <a 
               href="https://facebook.com" 
               target="_blank" 
@@ -69,7 +65,7 @@ const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
               href="https://instagram.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className=" hover:text-pink-600 transition-colors"
+              className="hover:text-pink-600 transition-colors"
               aria-label="Instagram"
             >
               <FaInstagram size={24} />

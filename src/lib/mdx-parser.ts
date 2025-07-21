@@ -95,7 +95,9 @@ export function parseMdxContent(content: string): ParsedMdxContent[] {
         braceProps.forEach(prop => {
           const [key, value] = prop.split('={');
           if (key) {
-            props[key] = value.replace(/}/g, '');
+            // Intentar convertir a número si es posible
+            const numValue = parseFloat(value.replace(/}/g, ''));
+            props[key] = isNaN(numValue) ? value.replace(/}/g, '') : numValue;
           }
         });
       }

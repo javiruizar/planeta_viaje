@@ -22,7 +22,7 @@ const TourCard: React.FC<TourCardProps> = ({
   precio, 
   destino, 
   imagen = "/images/tailandia.jpg",
-  duracion = "1 día",
+  duracion = "1 AAAdía",
   rating = 4.5
 }) => {
   return (

@@ -16,8 +16,7 @@ interface MapData {
 const MapaInteractivo: React.FC<MapaInteractivoProps> = ({ 
   localizacion, 
   zoom = 10, 
-  height = "400px", 
-  width = "100%" 
+  height = "400px"
 }) => {
   const [mapData, setMapData] = useState<MapData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -83,7 +82,7 @@ const MapaInteractivo: React.FC<MapaInteractivoProps> = ({
   }
 
   return (
-    <div className="my-8">
+    <div className="my-8 w-full overflow-hidden">
       <div className="bg-gray-100 p-4 rounded-lg mb-4">
         <h3 className="text-lg font-semibold mb-2">📍 {mapData.location}</h3>
         <p className="text-sm text-gray-600">
@@ -91,21 +90,21 @@ const MapaInteractivo: React.FC<MapaInteractivoProps> = ({
         </p>
       </div>
       
-      <div 
-        className="border rounded-lg overflow-hidden shadow-lg"
-        style={{ width, height }}
-      >
-        <iframe
-          width="100%"
-          height="100%"
-          frameBorder="0"
-          style={{ border: 0 }}
-          src={mapData.embedUrl}
-          title={`Mapa de ${mapData.location}`}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+      <div className="relative w-full overflow-hidden rounded-lg shadow-lg border">
+        <div className="relative w-full" style={{ height: height === "100%" ? "400px" : height }}>
+          <iframe
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            style={{ border: 0 }}
+            src={mapData.embedUrl}
+            title={`Mapa de ${mapData.location}`}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="absolute inset-0 w-full h-full"
+          />
+        </div>
       </div>
       
       <div className="mt-2 text-xs text-gray-500 text-center">
