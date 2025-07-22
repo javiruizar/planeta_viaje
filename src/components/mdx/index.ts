@@ -1,7 +1,7 @@
 // src/components/mdx/index.ts
 // Exportación de todos los componentes MDX
 
-export { default as MapaInteractivo } from './MapaInteractivo';
+export { default as InteractiveMap } from './InteractiveMap';
 export { default as CalloutBox } from './CalloutBox';
 export { default as ImageGallery } from './ImageGallery';
 export { default as Timeline } from './Timeline';
@@ -11,7 +11,7 @@ export { default as TourCard } from './TourCard';
 
 // Re-exportar tipos
 export type {
-  MapaInteractivoProps,
+  InteractiveMapProps,
   CalloutBoxProps,
   ImageGalleryProps,
   TimelineProps,

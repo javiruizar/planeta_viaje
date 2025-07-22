@@ -7,7 +7,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
-  MapaInteractivo,
+  InteractiveMap,
   CalloutBox,
   ImageGallery,
   Timeline,
@@ -17,7 +17,7 @@ import {
 // Componentes HTML estándar con estilos personalizados
 const components = {
   // Componentes MDX personalizados
-  MapaInteractivo,
+  InteractiveMap,
   CalloutBox,
   ImageGallery,
   Timeline,

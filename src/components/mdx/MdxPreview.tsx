@@ -7,7 +7,7 @@ import { MDXProvider } from '@mdx-js/react';
 import mdxComponents from '@/lib/mdx-components';
 import { markdownToHtml } from '@/lib/mdx-parser';
 import { 
-  MapaInteractivo, 
+  InteractiveMap, 
   CalloutBox, 
   TourCard, 
   ImageGallery, 
@@ -33,7 +33,7 @@ const MdxPreview: React.FC<MdxPreviewProps> = ({ content, title, excerpt }) => {
       const line = lines[i];
       
       // Detectar componentes por nombre
-      if (line.includes('<MapaInteractivo')) {
+      if (line.includes('<InteractiveMap')) {
         // Renderizar texto acumulado
         if (currentText.trim()) {
           result.push(
@@ -50,7 +50,7 @@ const MdxPreview: React.FC<MdxPreviewProps> = ({ content, title, excerpt }) => {
         const zoomMatch = line.match(/zoom=\{([^}]*)\}/);
         
         result.push(
-          <MapaInteractivo 
+          <InteractiveMap 
             key={`mapa-${i}`}
             localizacion={localizacionMatch ? localizacionMatch[1] : 'islandia'}
             zoom={zoomMatch ? parseInt(zoomMatch[1]) : 10}
@@ -58,7 +58,7 @@ const MdxPreview: React.FC<MdxPreviewProps> = ({ content, title, excerpt }) => {
         );
         
         // Saltar hasta el final del componente
-        while (i < lines.length && !lines[i].includes('/>') && !lines[i].includes('</MapaInteractivo>')) {
+        while (i < lines.length && !lines[i].includes('/>') && !lines[i].includes('</InteractiveMap>')) {
           i++;
         }
         i++; // Saltar la línea del cierre

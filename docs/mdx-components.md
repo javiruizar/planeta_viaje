@@ -2,13 +2,13 @@
 
 Esta documentación describe todos los componentes MDX personalizados disponibles para crear contenido rico en el blog de viajes.
 
-## 🗺️ MapaInteractivo
+## 🗺️ InteractiveMap
 
 Muestra mapas interactivos de destinos turísticos.
 
 ### Uso básico:
 ```mdx
-<MapaInteractivo localizacion="tailandia" />
+<InteractiveMap localizacion="tailandia" />
 ```
 
 ### Props disponibles:
@@ -26,7 +26,7 @@ Muestra mapas interactivos de destinos turísticos.
 ```mdx
 # Mi Viaje a Tailandia
 
-<MapaInteractivo localizacion="bangkok" zoom={12} height="500px" />
+<InteractiveMap localizacion="bangkok" zoom={12} height="500px" />
 
 Explora la capital tailandesa con este mapa interactivo.
 ```
@@ -249,7 +249,7 @@ touch drafts/mi-viaje-tailandia.mdx
 ```mdx
 # Mi Viaje a Tailandia
 
-<MapaInteractivo localizacion="bangkok" />
+<InteractiveMap localizacion="bangkok" />
 
 <CalloutBox type="tip">
   Lleva siempre agua y protector solar.

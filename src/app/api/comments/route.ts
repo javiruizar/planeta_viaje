@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
     select: {
       id: true,
       postId: true,
-      authorName: true, // ← Usamos authorName
+      authorName: true,
       content: true,
       createdAt: true,
     },

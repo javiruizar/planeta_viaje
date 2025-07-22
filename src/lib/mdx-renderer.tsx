@@ -8,7 +8,7 @@ import { useMemo } from 'react';
 import mdxComponents from './mdx-components';
 import { markdownToHtml } from './mdx-parser';
 import { 
-  MapaInteractivo, 
+  InteractiveMap, 
   CalloutBox, 
   TourCard, 
   ImageGallery, 
@@ -35,7 +35,7 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
     if (lines.length <= 3 && content.length > 1000) {
       // Dividir por componentes y espacios
       const componentPatterns = [
-        /<MapaInteractivo[^>]*>/g,
+        /<InteractiveMap[^>]*>/g,
         /<CalloutBox[^>]*>/g,
         /<TourCard[^>]*>/g,
         /<ImageGallery[^>]*>/g,
@@ -62,7 +62,7 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
       const line = lines[i];
       
       // Detectar componentes por nombre
-      if (line.includes('<MapaInteractivo')) {
+      if (line.includes('<InteractiveMap')) {
         // Renderizar texto acumulado
         if (currentText.trim()) {
           result.push(
@@ -79,7 +79,7 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
         const zoomMatch = line.match(/zoom=\{([^}]*)\}/);
         
         result.push(
-          <MapaInteractivo 
+          <InteractiveMap 
             key={`mapa-${i}`}
             localizacion={localizacionMatch ? localizacionMatch[1] : 'islandia'}
             zoom={zoomMatch ? parseInt(zoomMatch[1]) : 10}
@@ -87,7 +87,7 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
         );
         
         // Saltar hasta el final del componente
-        while (i < lines.length && !lines[i].includes('/>') && !lines[i].includes('</MapaInteractivo>')) {
+        while (i < lines.length && !lines[i].includes('/>') && !lines[i].includes('</InteractiveMap>')) {
           i++;
         }
         i++; // Saltar la línea del cierre

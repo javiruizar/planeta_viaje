@@ -1,5 +1,5 @@
 // src/lib/mdx-server.ts
-// Funciones MDX que solo funcionan en el servidor (usan fs)
+// Funciones MDX que solo funcionan en el servidor (usan fs). Usadas para leer los drafts
 
 import fs from 'fs';
 import path from 'path';

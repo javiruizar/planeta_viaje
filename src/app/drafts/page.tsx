@@ -60,7 +60,7 @@ export default function DraftsPage() {
         <h3 className="font-semibold mb-2">📋 Instrucciones:</h3>
         <ul className="text-sm text-gray-700 space-y-1">
           <li>• Crea archivos .mdx en la carpeta drafts/</li>
-          <li>• Usa componentes como &lt;MapaInteractivo localizacion=&quot;tailandia&quot; /&gt;</li>
+          <li>• Usa componentes como &lt;InteractiveMap localizacion=&quot;tailandia&quot; /&gt;</li>
           <li>• Haz clic en &quot;Ver preview&quot; para ver el resultado</li>
           <li>• Copia el contenido MDX al campo content de la base de datos</li>
         </ul>

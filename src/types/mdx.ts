@@ -1,7 +1,7 @@
 // src/types/mdx.ts
 // Tipos TypeScript para componentes MDX
 
-export interface MapaInteractivoProps {
+export interface InteractiveMapProps {
   localizacion: string;
   zoom?: number;
   height?: string;
