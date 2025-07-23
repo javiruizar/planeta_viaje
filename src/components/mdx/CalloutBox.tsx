@@ -7,7 +7,7 @@ import { CalloutBoxProps } from '@/types/mdx';
 const CalloutBox: React.FC<CalloutBoxProps> = ({ 
   type = 'info', 
   title, 
-  children 
+  text 
 }) => {
   const getStyles = () => {
     const baseStyles = "p-4 rounded-lg border-l-4 my-6";
@@ -48,7 +48,7 @@ const CalloutBox: React.FC<CalloutBoxProps> = ({
             <h4 className="font-semibold mb-2">{title}</h4>
           )}
           <div className="prose prose-sm max-w-none">
-            {children}
+            {text}
           </div>
         </div>
       </div>

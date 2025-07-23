@@ -21,7 +21,7 @@ export interface ImageGalleryProps {
 export interface CalloutBoxProps {
   type?: 'info' | 'warning' | 'tip' | 'note';
   title?: string;
-  children: React.ReactNode;
+  text: string;
 }
 
 export interface TimelineEvent {

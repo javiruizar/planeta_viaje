@@ -21,6 +21,24 @@ interface MdxRendererProps {
   className?: string;
 }
 
+type ImageItem = { src: string; alt: string; caption?: string };
+
+export function parseImages(text: string): ImageItem[] {
+  const match = text.match(/images=\[([\s\S]*)\]/);
+  if (!match) return [];
+
+  const arrayText = `[${match[1]}]`;
+
+  try {
+    // Evalúa el array como si fuera código JS
+    const fn = new Function(`return ${arrayText}`);
+    return fn() as ImageItem[];
+  } catch (e) {
+    console.error("Error evaluando el array:", e);
+    return [];
+  }
+}
+
 /**
  * Componente para renderizar contenido MDX desde la base de datos
  * Convierte el texto MDX en HTML renderizado con componentes React
@@ -29,10 +47,10 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
   // Función para detectar y renderizar componentes
   const renderMdxContent = useMemo(() => {
     // Si el contenido está todo en una línea, dividirlo por espacios y componentes
-    let lines = content.split('\n');
+    // let lines = content.split('\n');
     
     // Si hay muy pocas líneas pero mucho contenido, probablemente está todo junto
-    if (lines.length <= 3 && content.length > 1000) {
+    // if (lines.length <= 3 && content.length > 1000) {
       // Dividir por componentes y espacios
       const componentPatterns = [
         /<InteractiveMap[^>]*>/g,
@@ -43,7 +61,7 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
         /<VideoEmbed[^>]*>/g
       ];
       
-      let processedContent = content;
+      let processedContent = content.replaceAll('\n', ' ');
       
       // Agregar saltos de línea antes de cada componente
       componentPatterns.forEach(pattern => {
@@ -51,20 +69,14 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
       });
       
       // Dividir por saltos de línea
-      lines = processedContent.split('\n').filter(line => line.trim());
-    }
+      let lines = processedContent.split('\n').filter(line => line.trim());
+    
     
     const result: React.ReactNode[] = [];
     let currentText = '';
     let i = 0;
-    
-    while (i < lines.length) {
-      const line = lines[i];
-      
-      // Detectar componentes por nombre
-      if (line.includes('<InteractiveMap')) {
-        // Renderizar texto acumulado
-        if (currentText.trim()) {
+    const flushCurrentText = () => { 
+      if (currentText.trim()) {
           result.push(
             <div 
               key={`text-${i}`}
@@ -73,6 +85,14 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
           );
           currentText = '';
         }
+    }
+    while (i < lines.length) {
+      const line = lines[i];
+      
+      // Detectar componentes por nombre
+      if (line.includes('<InteractiveMap')) {
+        // Renderizar texto acumulado
+        flushCurrentText();
         
         // Extraer props básicos
         const localizacionMatch = line.match(/localizacion="([^"]*)"/);
@@ -94,54 +114,37 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
         
       } else if (line.includes('<CalloutBox')) {
         // Renderizar texto acumulado
-        if (currentText.trim()) {
-          result.push(
-            <div 
-              key={`text-${i}`}
-              dangerouslySetInnerHTML={{ __html: markdownToHtml(currentText.trim()) }}
-            />
-          );
-          currentText = '';
-        }
+        flushCurrentText();
         
         const typeMatch = line.match(/type="([^"]*)"/);
         const titleMatch = line.match(/title="([^"]*)"/);
-        
+        const textMatch = line.match(/text="([^"]*)"/);
         // Buscar el contenido del CalloutBox
-        let calloutContent = '';
-        let j = i + 1;
-        while (j < lines.length && !lines[j].includes('</CalloutBox>')) {
-          calloutContent += lines[j] + '\n';
-          j++;
-        }
+        // let calloutContent = '';
+        // let j = i;
+        // while (j < lines.length && !lines[j].includes('</CalloutBox>')) {
+        //   calloutContent += lines[j] + '\n';
+        //   j++;
+        // }
         
         result.push(
           <CalloutBox 
             key={`callout-${i}`}
             type={(typeMatch ? typeMatch[1] : 'info') as 'info' | 'warning' | 'tip' | 'note'}
             title={titleMatch ? titleMatch[1] : undefined}
-          >
-            {calloutContent}
-          </CalloutBox>
+            text={textMatch ? textMatch[1] : "text must be provided"}
+          />
         );
-        
-        i = j + 1; // Saltar hasta después del CalloutBox
+        i++;
         
       } else if (line.includes('<TourCard')) {
         // Renderizar texto acumulado
-        if (currentText.trim()) {
-          result.push(
-            <div 
-              key={`text-${i}`}
-              dangerouslySetInnerHTML={{ __html: markdownToHtml(currentText.trim()) }}
-            />
-          );
-          currentText = '';
-        }
+        flushCurrentText();
         
         const tituloMatch = line.match(/titulo="([^"]*)"/);
         const descripcionMatch = line.match(/descripcion="([^"]*)"/);
         const precioMatch = line.match(/precio="([^"]*)"/);
+        
         const destinoMatch = line.match(/destino="([^"]*)"/);
         const duracionMatch = line.match(/duracion="([^"]*)"/);
         const ratingMatch = line.match(/rating=\{([^}]*)\}/);
@@ -166,16 +169,12 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
         
       } else if (line.includes('<ImageGallery')) {
         // Renderizar texto acumulado
-        if (currentText.trim()) {
-          result.push(
-            <div 
-              key={`text-${i}`}
-              dangerouslySetInnerHTML={{ __html: markdownToHtml(currentText.trim()) }}
-            />
-          );
-          currentText = '';
-        }
+        flushCurrentText();
         
+
+        const imagesMatch = parseImages(line);
+
+       
         // Datos de ejemplo para ImageGallery
         const sampleImages = [
           { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4", alt: "Cascada Gullfoss", caption: "La impresionante cascada Gullfoss" },
@@ -186,7 +185,7 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
         result.push(
           <ImageGallery 
             key={`gallery-${i}`}
-            images={sampleImages}
+            images={imagesMatch}
             columns={3}
             gap="1rem"
           />
@@ -200,21 +199,13 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
         
       } else if (line.includes('<Timeline')) {
         // Renderizar texto acumulado
-        if (currentText.trim()) {
-          result.push(
-            <div 
-              key={`text-${i}`}
-              dangerouslySetInnerHTML={{ __html: markdownToHtml(currentText.trim()) }}
-            />
-          );
-          currentText = '';
-        }
+        flushCurrentText();
         
         // Datos de ejemplo para Timeline
         const sampleEvents = [
           {
             date: "Día 1",
-            title: "Llegada a Reikiavik",
+            title: "LleAAAgada a Reikiavik",
             description: "Aterrizamos en el aeropuerto Keflavík y nos dirigimos a la capital",
             location: "Reikiavik, Islandia"
           },
@@ -248,15 +239,7 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
         
       } else if (line.includes('<VideoEmbed')) {
         // Renderizar texto acumulado
-        if (currentText.trim()) {
-          result.push(
-            <div 
-              key={`text-${i}`}
-              dangerouslySetInnerHTML={{ __html: markdownToHtml(currentText.trim()) }}
-            />
-          );
-          currentText = '';
-        }
+        flushCurrentText();
         
         const urlMatch = line.match(/url="([^"]*)"/);
         const titleMatch = line.match(/title="([^"]*)"/);
