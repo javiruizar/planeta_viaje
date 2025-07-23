@@ -39,15 +39,16 @@ interface MdxRendererProps {
 //   }
 // }
 
-const getFullChunk = (currentLine: number, fullText: string[]): string => {
+const getFullChunk = (currentLine: number, fullText: string[]): [string, number] => {
   let chunk : string = fullText[currentLine]
   let j = currentLine
   while (j <= fullText.length && !fullText[j].includes('/>') ) {
     chunk = chunk.concat(" ", fullText[j])
     j++;
   }
-  chunk = chunk.replaceAll('\n', ' ').concat("/>")
-  return chunk
+  chunk = chunk.concat(" ", fullText[j+1])
+  chunk = chunk.replaceAll('\n', ' ')
+  return [chunk,j+1]
 }
 /**
  * Componente para renderizar contenido MDX desde la base de datos
@@ -105,7 +106,8 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
       if (line.includes('<InteractiveMap')) {
         // Renderizar texto acumulado
         flushCurrentText();
-        const chunk = getFullChunk(i, lines)
+        const finalLine = getFullChunk(i, lines)[1]
+        const chunk = getFullChunk(i, lines)[0]
         
         // Extraer props básicos
         const localizacionMatch = chunk.match(/localizacion="([^"]*)"/);
@@ -119,43 +121,35 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
           />
         );
         
-
-        // Saltar hasta el final del componente
-        while (i < lines.length && !lines[i].includes('/>') ) {
-          i++;
-        }
-        i++; // Saltar la línea del cierre
+        i = finalLine; // Saltar la línea del cierre
         
       } else if (line.includes('<CalloutBox')) {
         // Renderizar texto acumulado
         flushCurrentText();
-        const chunk = getFullChunk(i, lines)
+        const finalLine = getFullChunk(i, lines)[1]
+        const chunk = getFullChunk(i, lines)[0]
         
         const typeMatch = chunk.match(/type="([^"]*)"/);
         const titleMatch = chunk.match(/title="([^"]*)"/);
         const textMatch = chunk.match(/text="([^"]*)"/);
         // Buscar el contenido del CalloutBox
-        // let calloutContent = '';
-        // let j = i;
-        // while (j < lines.length && !lines[j].includes('</CalloutBox>')) {
-        //   calloutContent += lines[j] + '\n';
-        //   j++;
-        // }
+     
         
         result.push(
           <CalloutBox 
             key={`callout-${i}`}
-            type={(typeMatch ? typeMatch[1] : 'info') as 'info' | 'warning' | 'tip' | 'note'}
+            type={typeMatch ? typeMatch[1] : 'info'}
             title={titleMatch ? titleMatch[1] : undefined}
             text={textMatch ? textMatch[1] : "text must be provided"}
           />
         );
-        i++;
+        i = finalLine;
         
       } else if (line.includes('<TourCard')) {
         // Renderizar texto acumulado
         flushCurrentText();
-        const chunk = getFullChunk(i, lines)
+        const finalLine = getFullChunk(i, lines)[1]
+        const chunk = getFullChunk(i, lines)[0]
 
         const tituloMatch = chunk.match(/titulo="([^"]*)"/);
         const descripcionMatch = chunk.match(/descripcion="([^"]*)"/);
@@ -177,16 +171,13 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
           />
         );
         
-        // Saltar hasta el final del componente
-        while (i < lines.length && !lines[i].includes('/>') && !lines[i].includes('</TourCard>')) {
-          i++;
-        }
-        i++; // Saltar la línea del cierre
+        i = finalLine; // Saltar la línea del cierre
         
       } else if (line.includes('<ImageGallery')) {
         // Renderizar texto acumulado
         flushCurrentText();
-        // const chunk = getFullChunk(i, lines)
+        const finalLine = getFullChunk(i, lines)[1]
+        // const chunk = getFullChunk(i, lines)[0[]]
 
 
         // const imagesMatch = parseImages(line);
@@ -208,16 +199,13 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
           />
         );
         
-        // Saltar hasta el final del componente
-        while (i < lines.length && !lines[i].includes('/>') && !lines[i].includes('</ImageGallery>')) {
-          i++;
-        }
-        i++; // Saltar la línea del cierre
+        i = finalLine; // Saltar la línea del cierre
         
       } else if (line.includes('<Timeline')) {
         // Renderizar texto acumulado
         flushCurrentText();
-        // const chunk = getFullChunk(i, lines)
+        const finalLine = getFullChunk(i, lines)[1]
+        // const chunk = getFullChunk(i, lines)[0]
 
         // Datos de ejemplo para Timeline
         const sampleEvents = [
@@ -249,16 +237,13 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
           />
         );
         
-        // Saltar hasta el final del componente
-        while (i < lines.length && !lines[i].includes('/>') && !lines[i].includes('</Timeline>')) {
-          i++;
-        }
-        i++; // Saltar la línea del cierre
+        i = finalLine; // Saltar la línea del cierre
         
       } else if (line.includes('<VideoEmbed')) {
         // Renderizar texto acumulado
         flushCurrentText();
-        const chunk = getFullChunk(i, lines)
+        const finalLine = getFullChunk(i, lines)[1]
+        const chunk = getFullChunk(i, lines)[0]
 
         const urlMatch = chunk.match(/url="([^"]*)"/);
         const titleMatch = chunk.match(/title="([^"]*)"/);
@@ -274,11 +259,7 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
           />
         );
         
-        // Saltar hasta el final del componente
-        while (i < lines.length && !lines[i].includes('/>') && !lines[i].includes('</VideoEmbed>')) {
-          i++;
-        }
-        i++; // Saltar la línea del cierre
+        i = finalLine; // Saltar la línea del cierre
         
       } else {
         currentText += line + '\n';

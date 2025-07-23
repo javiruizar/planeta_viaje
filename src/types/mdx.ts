@@ -19,7 +19,8 @@ export interface ImageGalleryProps {
 }
 
 export interface CalloutBoxProps {
-  type?: 'info' | 'warning' | 'tip' | 'note';
+  // type?: 'info' | 'warning' | 'tip' | 'note' | 'danger';
+  type?: string;
   title?: string;
   text: string;
 }

@@ -19,8 +19,10 @@ const CalloutBox: React.FC<CalloutBoxProps> = ({
         return `${baseStyles} bg-green-50 border-green-400 text-green-800`;
       case 'note':
         return `${baseStyles} bg-blue-50 border-blue-400 text-blue-800`;
-      case 'info':
+      case 'danger': 
+        return `${baseStyles} bg-red-50 border-red-400 text-red-800`;
       default:
+        // default is info
         return `${baseStyles} bg-gray-50 border-gray-400 text-gray-800`;
     }
   };
