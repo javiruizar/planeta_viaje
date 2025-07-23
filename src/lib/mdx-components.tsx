@@ -11,7 +11,8 @@ import {
   CalloutBox,
   ImageGallery,
   Timeline,
-  VideoEmbed
+  VideoEmbed,
+  TourCard
 } from '@/components/mdx';
 
 // Componentes HTML estándar con estilos personalizados
@@ -22,6 +23,7 @@ const components = {
   ImageGallery,
   Timeline,
   VideoEmbed,
+  TourCard,
   
   // Componentes HTML estándar con estilos
   h1: (props: ComponentPropsWithoutRef<"h1">) => (
