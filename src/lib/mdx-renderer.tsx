@@ -50,6 +50,25 @@ const getFullChunk = (currentLine: number, fullText: string[]): [string, number]
   chunk = chunk.replaceAll('\n', ' ')
   return [chunk,j+1]
 }
+
+function parseImagesFromChunk(chunk: string): Array<{ src: string; alt: string; caption?: string }> {
+  // Captura el contenido entre images=[ ... ]
+  const imagesMatch = chunk.match(/images=\[([\s\S]*?)\]/);
+  if (!imagesMatch) return [];
+
+  let jsonText = imagesMatch[1];
+
+  // Poner comillas a las keys
+  jsonText = jsonText.replace(/([{,]\s*)(\w+)\s*:/g, '$1"$2":');
+
+  // Parsear como JSON
+  try {
+    return JSON.parse(`[${jsonText}]`); // volvemos a poner los corchetes
+  } catch (error) {
+    console.error("Error al parsear las imágenes:", error, "Texto:", jsonText);
+    return [];
+  }
+}
 /**
  * Componente para renderizar contenido MDX desde la base de datos
  * Convierte el texto MDX en HTML renderizado con componentes React
@@ -177,24 +196,19 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
         // Renderizar texto acumulado
         flushCurrentText();
         const finalLine = getFullChunk(i, lines)[1]
-        // const chunk = getFullChunk(i, lines)[0[]]
+        const chunk: string = getFullChunk(i, lines)[0]
 
+        // let imagesArray: Array<{ src: string; alt: string; caption?: string }> = [];
+        
 
-        // const imagesMatch = parseImages(line);
-
-       
-        // Datos de ejemplo para ImageGallery
-        const sampleImages = [
-          { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4", alt: "Cascada Gullfoss", caption: "La impresionante cascada Gullfoss" },
-          { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64", alt: "Geysir", caption: "El famoso géiser Strokkur" },
-          { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4", alt: "Þingvellir", caption: "Parque Nacional Þingvellir" }
-        ];
+        const imagesArray = parseImagesFromChunk(chunk);
+        const columnsMatch = chunk.match(/columns=\{([^}]*)\}/);
         
         result.push(
           <ImageGallery 
             key={`gallery-${i}`}
-            images={sampleImages}
-            columns={3}
+            images={imagesArray}
+            columns={columnsMatch ? parseInt(columnsMatch[1]) : 3}
             gap="1rem"
           />
         );
