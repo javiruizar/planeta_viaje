@@ -65,8 +65,7 @@ export async function GET(request: NextRequest) {
         embedUrl,
         mapsUrl,
         zoom: parseInt(zoom)
-      }
-    });
+    }});
 
   } catch (error) {
     console.error('Error in maps API:', error);

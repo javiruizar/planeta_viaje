@@ -1,7 +1,7 @@
 // src/types/mdx.ts
 // Tipos TypeScript para componentes MDX
 
-export interface MapaInteractivoProps {
+export interface InteractiveMapProps {
   localizacion: string;
   zoom?: number;
   height?: string;
@@ -19,9 +19,10 @@ export interface ImageGalleryProps {
 }
 
 export interface CalloutBoxProps {
-  type?: 'info' | 'warning' | 'tip' | 'note';
+  // type?: 'info' | 'warning' | 'tip' | 'note' | 'danger';
+  type?: string;
   title?: string;
-  children: React.ReactNode;
+  text: string;
 }
 
 export interface TimelineEvent {
@@ -34,7 +35,7 @@ export interface TimelineEvent {
 
 export interface TimelineProps {
   events: TimelineEvent[];
-  orientation?: 'vertical' | 'horizontal';
+  orientation?: string;
 }
 
 export interface VideoEmbedProps {

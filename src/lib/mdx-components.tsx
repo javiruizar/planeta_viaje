@@ -7,21 +7,23 @@ import type { ComponentPropsWithoutRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
-  MapaInteractivo,
+  InteractiveMap,
   CalloutBox,
   ImageGallery,
   Timeline,
-  VideoEmbed
+  VideoEmbed,
+  TourCard
 } from '@/components/mdx';
 
 // Componentes HTML estándar con estilos personalizados
 const components = {
   // Componentes MDX personalizados
-  MapaInteractivo,
+  InteractiveMap,
   CalloutBox,
   ImageGallery,
   Timeline,
   VideoEmbed,
+  TourCard,
   
   // Componentes HTML estándar con estilos
   h1: (props: ComponentPropsWithoutRef<"h1">) => (

@@ -1,9 +1,9 @@
 "use client";
-// src/components/mdx/MapaInteractivo.tsx
+// src/components/mdx/InteractiveMap.tsx
 // Componente para mostrar mapas interactivos en contenido MDX
 
 import React, { useState, useEffect } from 'react';
-import { MapaInteractivoProps } from '@/types/mdx';
+import { InteractiveMapProps } from '@/types/mdx';
 
 interface MapData {
   location: string;
@@ -13,7 +13,7 @@ interface MapData {
   zoom: number;
 }
 
-const MapaInteractivo: React.FC<MapaInteractivoProps> = ({ 
+const InteractiveMap: React.FC<InteractiveMapProps> = ({ 
   localizacion, 
   zoom = 10, 
   height = "400px"
@@ -121,4 +121,4 @@ const MapaInteractivo: React.FC<MapaInteractivoProps> = ({
   );
 };
 
-export default MapaInteractivo; 
+export default InteractiveMap; 

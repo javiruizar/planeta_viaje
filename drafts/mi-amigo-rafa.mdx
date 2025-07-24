@@ -1,12 +1,12 @@
-# Qué ver en Islandia en 7 días
-
+# Este es el titulo Mi amigo Rafa es un tipo estupendo
+## subtitulo en una misma linea
 Islandia es un país lleno de paisajes increíbles. A continuación te muestro los lugares clave:
 
-<MapaInteractivo localizacion="islandia" zoom={8} />
+<InteractiveMap localizacion="islandia" zoom={8} />
 
-<CalloutBox type="tip" title="Consejo de Viajero">
-  La mejor época para visitar Islandia es entre junio y agosto, cuando las temperaturas son más suaves y los días son más largos.
-</CalloutBox>
+<CalloutBox type="danger" title="Consejo de Viajero" 
+text="La mejor época para visitar Islandia es entre junio y agosto, cuando las temperaturas son más suaves y los días son más largos"
+/>
 
 ## Lugares imprescindibles
 
@@ -18,37 +18,41 @@ El Círculo Dorado es una ruta turística que incluye tres de los lugares más p
 - **Þingvellir**: El parque nacional donde se reunía el parlamento vikingo
 
 <ImageGallery 
-  images={[
-    { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4", alt: "Cascada Gullfoss", caption: "La impresionante cascada Gullfoss" },
+  images=[
+    { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4", alt: "Cascada PARSEADA Gullfoss", caption: "La PARSEADA  impresionante cascada Gullfoss" },
     { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64", alt: "Geysir", caption: "El famoso géiser Strokkur" },
     { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4", alt: "Þingvellir", caption: "Parque Nacional Þingvellir" }
-  ]}
+  ]
   columns={3}
 />
 
 ### 2. Playa de arena negra en Vík
 La playa de Reynisfjara es famosa por su arena negra y las columnas de basalto.
 
-<CalloutBox type="warning" title="¡Atención!">
-  Ten mucho cuidado con las olas en Reynisfjara. Son muy peligrosas y han causado accidentes mortales.
-</CalloutBox>
+<CalloutBox type="warning" title="¡Atención!" 
+text="este es el texto"
+/>
+
+ <CalloutBox type="tip" title="Consejo de Viajero" 
+text="La mejor época para visitar Islandia es en y los días son más largos"
+/>
 
 ### 3. Cascada Skógafoss
 Una de las cascadas más impresionantes de Islandia, con 60 metros de altura.
 
 <VideoEmbed 
-  url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-  title="Cascada Skógafoss"
+  url="https://www.youtube.com/watch?v=yn3kSl8WfvU"
+  title="Cascada aaaaaaaa"
   provider="youtube"
 />
 
 ## Cronología del viaje
 
 <Timeline 
-  events={[
+  events=[
     {
-      date: "Día 1",
-      title: "Llegada a Reikiavik",
+      date: "Día 1 EN VARIAS LINEAS",
+      title: "Llegada PARSEADO a Reikiavik",
       description: "Aterrizamos en el aeropuerto Keflavík y nos dirigimos a la capital",
       location: "Reikiavik, Islandia"
     },
@@ -70,13 +74,13 @@ Una de las cascadas más impresionantes de Islandia, con 60 metros de altura.
       description: "Exploramos la capital y sus alrededores",
       location: "Reikiavik, Islandia"
     }
-  ]}
+  ]
+  orientation="horizontal"
 />
 
 ## Reserva tu tour
 
-<TourCard
-  titulo="Tour por el sur de Islandia"
+<TourCard   titulo="Tour por el sur de Islandia EN LA MISMA"
   descripcion="Explora glaciares, cascadas y playas negras en este tour de 2 días."
   precio="299€"
   destino="/tours/islandia-sur"
@@ -85,7 +89,7 @@ Una de las cascadas más impresionantes de Islandia, con 60 metros de altura.
 />
 
 <TourCard
-  titulo="Aurora Boreal en Islandia"
+  titulo="Aurora Boreal en Islandia EN VARIAS LINEAS"
   descripcion="Caza las auroras boreales en los mejores lugares del país."
   precio="199€"
   destino="/tours/aurora-boreal"
@@ -96,3 +100,7 @@ Una de las cascadas más impresionantes de Islandia, con 60 metros de altura.
 ---
 
 **¡Islandia te espera con paisajes de otro mundo!** 🌋❄️
+
+## Lugares imprescindibles
+
+### 1. Círculo Dorado
