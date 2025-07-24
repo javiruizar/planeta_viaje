@@ -51,7 +51,8 @@ const getFullChunk = (currentLine: number, fullText: string[]): [string, number]
   return [chunk,j+1]
 }
 
-function parseImagesFromChunk(chunk: string): Array<{ src: string; alt: string; caption?: string }> {
+function parseImagesFromChunk(chunk: string): 
+Array<{ src: string; alt: string; caption?: string }> {
   // Captura el contenido entre images=[ ... ]
   const imagesMatch = chunk.match(/images=\[([\s\S]*?)\]/);
   if (!imagesMatch) return [];
@@ -66,6 +67,25 @@ function parseImagesFromChunk(chunk: string): Array<{ src: string; alt: string; 
     return JSON.parse(`[${jsonText}]`); // volvemos a poner los corchetes
   } catch (error) {
     console.error("Error al parsear las imágenes:", error, "Texto:", jsonText);
+    return [];
+  }
+}
+
+function parseTimelineFromChunk(chunk: string): 
+Array<{ date: string; title: string; description: string; location?: string; image?: string }> {
+
+  const timelineMatch = chunk.match(/events=\[([\s\S]*?)\]/);
+  if (!timelineMatch) return [];
+
+  let jsonText = timelineMatch[1];
+
+  // Poner comillas a las keys
+  jsonText = jsonText.replace(/([{,]\s*)(\w+)\s*:/g, '$1"$2":');
+
+  try {
+    return JSON.parse(`[${jsonText}]`); // volvemos a poner los corchetes
+  } catch (error) {
+    console.error("Error al parsear el timeline:", error, "Texto:", jsonText);
     return [];
   }
 }
@@ -219,35 +239,15 @@ const MdxRenderer: React.FC<MdxRendererProps> = ({ content, className = '' }) =>
         // Renderizar texto acumulado
         flushCurrentText();
         const finalLine = getFullChunk(i, lines)[1]
-        // const chunk = getFullChunk(i, lines)[0]
-
-        // Datos de ejemplo para Timeline
-        const sampleEvents = [
-          {
-            date: "Día 1",
-            title: "LleAAAgada a Reikiavik",
-            description: "Aterrizamos en el aeropuerto Keflavík y nos dirigimos a la capital",
-            location: "Reikiavik, Islandia"
-          },
-          {
-            date: "Día 2-3",
-            title: "Círculo Dorado",
-            description: "Exploramos Gullfoss, Geysir y Þingvellir",
-            location: "Círculo Dorado, Islandia"
-          },
-          {
-            date: "Día 4-5",
-            title: "Costa Sur",
-            description: "Visitamos Vík, Skógafoss y la playa de arena negra",
-            location: "Costa Sur, Islandia"
-          }
-        ];
+        const chunk = getFullChunk(i, lines)[0]
+        const eventsArray = parseTimelineFromChunk(chunk)
+        const orientationMatch = chunk.match(/orientation="([^"]*)"/);
         
         result.push(
           <Timeline 
             key={`timeline-${i}`}
-            events={sampleEvents}
-            orientation="vertical"
+            events={eventsArray}
+            orientation={orientationMatch ? orientationMatch[1] : 'vertical'}
           />
         );
         

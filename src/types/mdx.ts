@@ -35,7 +35,7 @@ export interface TimelineEvent {
 
 export interface TimelineProps {
   events: TimelineEvent[];
-  orientation?: 'vertical' | 'horizontal';
+  orientation?: string;
 }
 
 export interface VideoEmbedProps {

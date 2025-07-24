@@ -29,6 +29,8 @@ const CalloutBox: React.FC<CalloutBoxProps> = ({
 
   const getIcon = () => {
     switch (type) {
+      case 'danger':
+        return '🚨';
       case 'warning':
         return '⚠️';
       case 'tip':
