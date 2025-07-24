@@ -167,7 +167,7 @@ export function markdownToHtml(text: string): string {
   let html = text;
   
   // Convertir títulos
-  html = html.replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold mb-6 mt-8 text-gray-900">$1</h1>');
+  html = html.replace(/^# (.*$)/gim, ''); // Tittle is set from database
   html = html.replace(/^## (.*$)/gim, '<h2 class="text-2xl font-semibold mb-4 mt-6 text-gray-800">$1</h2>');
   html = html.replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold mb-3 mt-5 text-gray-800">$1</h3>');
   html = html.replace(/^#### (.*$)/gim, '<h4 class="text-lg font-semibold mb-2 mt-4 text-gray-800">$1</h4>');
