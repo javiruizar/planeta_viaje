@@ -1,8 +1,7 @@
 // src/components/layout/DropdownMenu.tsx
 "use client";
 
-
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 
 const continents = [
@@ -13,16 +12,47 @@ const continents = [
   { name: 'Oceanía', slug: 'oceania' },
 ];
 
-const DropdownMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface DropdownMenuProps {
+  menuStyles?: {
+    container: string;
+    link: string;
+  };
+  isOpen?: boolean;
+  onMenuChange?: (isOpen: boolean) => void;
+}
+
+const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen, onMenuChange }: DropdownMenuProps) => {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  // Usar el estado externo si se proporciona, sino usar el interno
+  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
+
+  // Estilos por defecto si no se proporcionan
+  const defaultStyles = {
+    container: "absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-200",
+    link: "block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors"
+  };
+
+  const styles = menuStyles || defaultStyles;
+
+  // Función para manejar el cambio de estado del menú
+  const handleMenuChange = (newIsOpen: boolean) => {
+    if (onMenuChange) {
+      onMenuChange(newIsOpen);
+    } else {
+      setInternalIsOpen(newIsOpen);
+    }
+  };
 
   return (
     <div 
       className="relative group"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={() => handleMenuChange(true)}
+      onMouseLeave={() => handleMenuChange(false)}
     >
       <button 
+        ref={buttonRef}
         className="flex items-center gap-1 px-4 py-8 text-white font-bold hover:bg-white/20 rounded-lg transition-colors"
         aria-expanded={isOpen}
         aria-haspopup="true"
@@ -40,13 +70,13 @@ const DropdownMenu = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1">
+        <div className={styles.container}>
           {continents.map((continent) => (
             <Link
               key={continent.slug}
               href={`/category/${continent.slug}`}
-              className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-              onClick={() => setIsOpen(false)}
+              className={styles.link}
+              onClick={() => handleMenuChange(false)}
             >
               {continent.name}
             </Link>
