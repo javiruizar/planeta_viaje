@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaBars, FaTimes } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube} from 'react-icons/fa';
 import Logo from './Logo';
 import DropdownMenu from './DropdownMenu';
 import MobileMenu from './MobileMenu';
@@ -17,8 +17,6 @@ const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [destinosMenuOpen, setDestinosMenuOpen] = useState(false);
 
-  // Cierra el menú hamburguesa al navegar
-  const handleMenuClick = () => setMobileMenuOpen(false);
 
   // Función para cerrar el menú hamburguesa cuando se abre el menú DESTINOS
   const handleDestinosMenuChange = (isOpen: boolean) => {
@@ -28,14 +26,6 @@ const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
     }
   };
 
-  // Función para cerrar el menú DESTINOS cuando se abre el menú hamburguesa
-  const handleMobileMenuToggle = () => {
-    const newMobileMenuState = !mobileMenuOpen;
-    setMobileMenuOpen(newMobileMenuState);
-    if (newMobileMenuState) {
-      setDestinosMenuOpen(false);
-    }
-  };
 
   // Formato común para ambos menús
   const menuStyles = {
