@@ -1,11 +1,12 @@
 "use client"
 // src/components/layout/Header.tsx
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaBars, FaTimes } from 'react-icons/fa';
 import Logo from './Logo';
 import DropdownMenu from './DropdownMenu';
+import MobileMenu from './MobileMenu';
 
 type HeaderProps = {
   backgroundImage: string;
@@ -47,26 +48,6 @@ const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
     container: "absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-1 border border-gray-200",
     link: "block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors"
   };
-
-  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
-
- useEffect(() => {
-  function handleClickOutside(event: MouseEvent) {
-    if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-      setMobileMenuOpen(false);
-    }
-  }
-
-  if (mobileMenuOpen) {
-    document.addEventListener("mousedown", handleClickOutside);
-  } else {
-    document.removeEventListener("mousedown", handleClickOutside);
-  }
-
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, [mobileMenuOpen]);
 
   return (
     <header className="relative h-96 w-full overflow-visible">
@@ -134,22 +115,14 @@ const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
                 <Logo className="w-16 h-16"/>
               </div>
               {/* Derecha: Menú hamburguesa */}
-              <div className="flex justify-end mr-4">
-                <button
-                  className="text-white focus:outline-none"
-                  aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
-                  onClick={handleMobileMenuToggle}
-                >
-                  {mobileMenuOpen ? <FaTimes size={28} /> : <FaBars size={28} />}
-                </button>
-                {/* Menú hamburguesa desplegable - posicionado como el menú DESTINOS pero centrado */}
-                {mobileMenuOpen && (
-                  <div ref={mobileMenuRef} className={mobileMenuStyles.container}>
-                    <Link href="/descuentos" className={`${mobileMenuStyles.link} w-full text-center`} onClick={handleMenuClick}>DESCUENTOS</Link>
-                    <Link href="/sitios-utiles" className={`${mobileMenuStyles.link} w-full text-center`} onClick={handleMenuClick}>SITIOS ÚTILES</Link>
-                  </div>
-                )}
-              </div>
+              <MobileMenu
+                menuStyles={mobileMenuStyles}
+                isOpen={mobileMenuOpen}
+                onMenuChange={(isOpen) => {
+                  setMobileMenuOpen(isOpen);
+                  if (isOpen) setDestinosMenuOpen(false);
+                }}
+              />
             </div>
           </div>
         </div>
