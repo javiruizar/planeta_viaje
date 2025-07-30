@@ -30,20 +30,20 @@ const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen, onMenuChange }: Drop
 
   // Estilos por defecto si no se proporcionan
   const defaultStyles = {
-    container: "absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-200",
+    container: "absolute left-0 w-48 bg-white rounded-lg shadow-lg py-1 border border-gray-200",
     link: "block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors"
   };
 
   const styles = menuStyles || defaultStyles;
 
   // Función para manejar el cambio de estado del menú
-  const handleMenuChange = (newIsOpen: boolean) => {
-    if (onMenuChange) {
-      onMenuChange(newIsOpen);
-    } else {
-      setIsOpen(newIsOpen);
-    }
-  };
+  // const handleMenuChange = (newIsOpen: boolean) => {
+  //   if (onMenuChange) {
+  //     onMenuChange(newIsOpen);
+  //   } else {
+  //     setIsOpen(newIsOpen);
+  //   }
+  // };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -69,12 +69,15 @@ const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen, onMenuChange }: Drop
   return (
     <div 
       className="relative group"
-      onClick={() => handleMenuChange(true)}
+      // onClick={() => setIsOpen(true)}
     >
       <button 
         ref={buttonRef}
         className="flex items-center gap-1 px-4 py-8 text-white font-bold hover:bg-white/20 rounded-lg transition-colors"
+        
         onClick={() => setIsOpen(!isOpen)}
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}
         // aria-expanded={isOpen}
         // aria-haspopup="true"
       >
@@ -93,13 +96,16 @@ const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen, onMenuChange }: Drop
       {isOpen && (
         <div 
         ref={dropdownRef}
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}  
+        onClick={() => setIsOpen(!isOpen)}
         className={styles.container}>
           {continents.map((continent) => (
             <Link
               key={continent.slug}
               href={`/category/${continent.slug}`}
               className={styles.link}
-              onClick={() => handleMenuChange(false)}
+              onClick={() => setIsOpen(false)}
             >
               {continent.name}
             </Link>
