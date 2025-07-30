@@ -1,7 +1,7 @@
 // src/components/layout/DropdownMenu.tsx
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 
 const continents = [
@@ -24,9 +24,9 @@ interface DropdownMenuProps {
 const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen, onMenuChange }: DropdownMenuProps) => {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
-
+  const dropdownRef = useRef<HTMLDivElement>(null);
   // Usar el estado externo si se proporciona, sino usar el interno
-  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
+  const [isOpen, setIsOpen] = useState(externalIsOpen !== undefined ? externalIsOpen : internalIsOpen);
 
   // Estilos por defecto si no se proporcionan
   const defaultStyles = {
@@ -41,9 +41,30 @@ const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen, onMenuChange }: Drop
     if (onMenuChange) {
       onMenuChange(newIsOpen);
     } else {
-      setInternalIsOpen(newIsOpen);
+      setIsOpen(newIsOpen);
     }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
     <div 
@@ -53,8 +74,9 @@ const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen, onMenuChange }: Drop
       <button 
         ref={buttonRef}
         className="flex items-center gap-1 px-4 py-8 text-white font-bold hover:bg-white/20 rounded-lg transition-colors"
-        aria-expanded={isOpen}
-        aria-haspopup="true"
+        onClick={() => setIsOpen(!isOpen)}
+        // aria-expanded={isOpen}
+        // aria-haspopup="true"
       >
         DESTINOS
         <svg 
@@ -69,7 +91,9 @@ const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen, onMenuChange }: Drop
       </button>
 
       {isOpen && (
-        <div className={styles.container}>
+        <div 
+        ref={dropdownRef}
+        className={styles.container}>
           {continents.map((continent) => (
             <Link
               key={continent.slug}
