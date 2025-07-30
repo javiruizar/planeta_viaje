@@ -48,8 +48,7 @@ const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen, onMenuChange }: Drop
   return (
     <div 
       className="relative group"
-      onMouseEnter={() => handleMenuChange(true)}
-      onMouseLeave={() => handleMenuChange(false)}
+      onClick={() => handleMenuChange(true)}
     >
       <button 
         ref={buttonRef}
