@@ -8,9 +8,9 @@ import ParallaxBackground from "@/components/layout/ParallaxBackground";
 import Header from "@/components/layout/Header";
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 /**
@@ -30,7 +30,7 @@ export async function generateStaticParams() {
  * Esto mejora el SEO de las páginas de categorías.
  */
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   
   // Validar que la categoría existe
   if (!isValidCategorySlug(slug)) {
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
   
   // Validar que la categoría existe
   if (!isValidCategorySlug(slug)) {

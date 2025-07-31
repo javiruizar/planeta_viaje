@@ -25,7 +25,7 @@ interface CategoryPostCardProps {
  * @param {CategoryPostCardProps} props - Las propiedades que recibe el componente, desestructuradas para un uso más fácil.
  * @returns {React.ReactElement} El elemento JSX que representa la tarjeta del post.
  */
-const CategoryPostCard = ({ title, excerpt, imageUrl, slug, createdAt }: CategoryPostCardProps) => {
+const CategoryPostCard = ({ title, imageUrl, slug, createdAt }: CategoryPostCardProps) => {
   return (
     // El contenedor principal de la tarjeta. Es un enlace que lleva al post completo.
     // Las clases de Tailwind le dan bordes redondeados, sombra y efectos de hover.

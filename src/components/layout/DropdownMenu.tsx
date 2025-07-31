@@ -21,8 +21,8 @@ interface DropdownMenuProps {
   onMenuChange?: (isOpen: boolean) => void;
 }
 
-const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen, onMenuChange }: DropdownMenuProps) => {
-  const [internalIsOpen, setInternalIsOpen] = useState(false);
+const DropdownMenu = ({ menuStyles, isOpen: externalIsOpen }: DropdownMenuProps) => {
+  const [internalIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   // Usar el estado externo si se proporciona, sino usar el interno
