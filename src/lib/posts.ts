@@ -26,6 +26,15 @@ export interface PostDTO {
 }
 
 /**
+ * Data Transfer Object (DTO) para una categoría.
+ */
+export interface CategoryDTO {
+  id: string;
+  slug: string;
+  name: string;
+}
+
+/**
  * Obtiene todos los posts ordenados por fecha de creación descendente.
  * @returns {Promise<PostDTO[]>} Array de posts para mostrar en la página principal o de categorías.
  *
@@ -72,6 +81,74 @@ export async function getPostBySlug(slug: string): Promise<PostDTO | null> {
   });
   if (!post) return null;
   return { ...post, createdAt: post.createdAt.toISOString() };
+}
+
+/**
+ * Obtiene todos los posts de una categoría específica.
+ * @param {string} categorySlug - El slug de la categoría.
+ * @returns {Promise<PostDTO[]>} Array de posts de la categoría.
+ *
+ * Ejemplo:
+ * const posts = await getPostsByCategory('europa');
+ */
+export async function getPostsByCategory(categorySlug: string): Promise<PostDTO[]> {
+  const posts = await prisma.post.findMany({
+    where: {
+      category: {
+        slug: categorySlug
+      }
+    },
+    orderBy: { createdAt: 'desc' },
+    select: {
+      id: true,
+      slug: true,
+      title: true,
+      excerpt: true,
+      imageUrl: true,
+      content: true,
+      createdAt: true,
+    },
+  });
+  return posts.map(post => ({ ...post, createdAt: post.createdAt.toISOString() }));
+}
+
+/**
+ * Obtiene una categoría por su slug.
+ * @param {string} slug - El slug de la categoría.
+ * @returns {Promise<CategoryDTO | null>} La categoría encontrada o null si no existe.
+ *
+ * Ejemplo:
+ * const category = await getCategoryBySlug('europa');
+ */
+export async function getCategoryBySlug(slug: string): Promise<CategoryDTO | null> {
+  const category = await prisma.category.findUnique({
+    where: { slug },
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+    },
+  });
+  return category;
+}
+
+/**
+ * Obtiene todas las categorías disponibles.
+ * @returns {Promise<CategoryDTO[]>} Array de todas las categorías.
+ *
+ * Ejemplo:
+ * const categories = await getAllCategories();
+ */
+export async function getAllCategories(): Promise<CategoryDTO[]> {
+  const categories = await prisma.category.findMany({
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+    },
+    orderBy: { name: 'asc' },
+  });
+  return categories;
 }
 
 /**
