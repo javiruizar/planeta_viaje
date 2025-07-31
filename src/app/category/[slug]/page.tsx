@@ -6,6 +6,7 @@ import { getPostsByCategory } from "@/lib/posts";
 import { getAllCategories, isValidCategorySlug, getCategoryBySlug } from "@/lib/categories";
 import ParallaxBackground from "@/components/layout/ParallaxBackground";
 import Header from "@/components/layout/Header";
+import Breadcrumbs from "@/components/layout/Breadcrumbs";
 
 interface CategoryPageProps {
   params: Promise<{
@@ -52,10 +53,21 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   return {
     title: `${category.name} - Planeta Viaje`,
     description: category.description,
+    keywords: `${category.name}, viajes, turismo, destinos, ${category.name.toLowerCase()}`,
     openGraph: {
       title: `${category.name} - Planeta Viaje`,
       description: category.description,
       type: 'website',
+      locale: 'es_ES',
+      siteName: 'Planeta Viaje',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${category.name} - Planeta Viaje`,
+      description: category.description,
+    },
+    alternates: {
+      canonical: `https://planetaviaje.com/category/${slug}`,
     },
   };
 }
@@ -86,8 +98,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         overlay={true}
         overlayColor="rgba(0, 0, 0, 0.4)"
       >
-        <div className="mx-auto px-4 bg-gray-500/80">
+        <div className="mx-auto bg-gray-500/80">
           <section className="py-16">
+            <div className="max-w-7xl mx-auto px-12">
+              <Breadcrumbs 
+                items={[
+                  { label: 'Destinos', href: '/#destinos' },
+                  { label: category.name }
+                ]} 
+              />
+            </div>
             <h1 className="text-4xl font-bold mb-4 text-center text-white">
               {category.name}
             </h1>
@@ -95,7 +115,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {category.description}
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid px-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" >
               {posts.length > 0 ? (
                 posts.map((post) => (
                   <CategoryPostCard key={post.slug} {...post} />
