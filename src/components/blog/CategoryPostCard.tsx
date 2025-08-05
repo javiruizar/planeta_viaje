@@ -63,7 +63,7 @@ const CategoryPostCard = ({ title, imageUrl, slug, createdAt }: CategoryPostCard
       </div>
 
       {/* Contenedor para el contenido (título y fecha) */}
-      <div className="absolute -bottom-2 left-0 right-0 p-6 overflow-hidden">
+      <div className="absolute -bottom-2 left-0 right-0 p-6 overflow-hidden z-1">
         
         {/* Fecha de publicación del post */}
         <p className="text-sm text-white/80 mb-2">
