@@ -8,7 +8,7 @@ import Link from 'next/link';
  * Se definen los tipos de las propiedades (props) que el componente CategoryPostCard espera recibir.
  * Similar a PostCard pero optimizado para páginas de categorías.
  */
-interface CategoryPostCardProps {
+interface BrightPostCardProps {
   title: string;
   excerpt: string;
   imageUrl: string;
@@ -28,7 +28,7 @@ interface CategoryPostCardProps {
  * @param {CategoryPostCardProps} props - Las propiedades que recibe el componente, desestructuradas para un uso más fácil.
  * @returns {React.ReactElement} El elemento JSX que representa la tarjeta del post.
  */
-const CategoryPostCard = ({ title, imageUrl, slug, createdAt }: CategoryPostCardProps) => {
+const BrightPostCard = ({ title, imageUrl, slug, createdAt }: BrightPostCardProps) => {
   return (
     // El contenedor principal de la tarjeta. Es un enlace que lleva al post completo.
     // Las clases de Tailwind le dan bordes redondeados, sombra y efectos de hover.
@@ -96,4 +96,4 @@ const CategoryPostCard = ({ title, imageUrl, slug, createdAt }: CategoryPostCard
 };
 
 // Exportamos el componente para poder usarlo en otras partes de la aplicación.
-export default CategoryPostCard; 
+export default BrightPostCard; 

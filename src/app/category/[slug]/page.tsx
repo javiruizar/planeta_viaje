@@ -1,7 +1,7 @@
 // src/app/category/[slug]/page.tsx
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import CategoryPostCard from "@/components/blog/CategoryPostCard";
+import BrightPostCard from "@/components/blog/BrighPostCard";
 import { getPostsByCategory } from "@/lib/posts";
 import { getAllCategories, isValidCategorySlug, getCategoryBySlug } from "@/lib/categories";
 import ParallaxBackground from "@/components/layout/ParallaxBackground";
@@ -118,7 +118,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <div className="grid px-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" >
               {posts.length > 0 ? (
                 posts.map((post) => (
-                  <CategoryPostCard key={post.slug} {...post} />
+                  <BrightPostCard key={post.slug} {...post} />
                 ))
               ) : (
                 <div className="col-span-full text-center text-white py-8">
