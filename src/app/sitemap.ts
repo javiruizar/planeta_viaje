@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Páginas de categorías
-  const categories = getAllCategories();
+  const categories = await getAllCategories();
   const categoryPages = categories.map((category) => ({
     url: `${baseUrl}/category/${category.slug}`,
     lastModified: new Date(),

@@ -1,53 +1,35 @@
 // src/lib/categories.ts
+import { prisma } from './prisma';
+import { Prisma } from '@prisma/client';
 
-export interface Category {
-  name: string;
-  slug: string;
-  description: string;
-  imageUrl?: string;
-}
 
-export const categories: Category[] = [
-  {
-    name: 'Europa',
-    slug: 'europa',
-    description: 'Descubre los destinos más fascinantes de Europa',
-    imageUrl: '/images/salamanca.jpg'
-  },
-  {
-    name: 'Asia',
-    slug: 'asia',
-    description: 'Explora la diversidad cultural y natural de Asia',
-    imageUrl: '/images/Nueva-York-City-Hall-Park.jpg'
-  },
-  {
-    name: 'América',
-    slug: 'america',
-    description: 'Aventuras inolvidables en el continente americano',
-    imageUrl: '/images/IMG_9881.jpg'
-  },
-  {
-    name: 'África',
-    slug: 'africa',
-    description: 'Sumérgete en la riqueza natural y cultural de África',
-    imageUrl: '/images/salamanca.jpg'
-  },
-  {
-    name: 'Oceanía',
-    slug: 'oceania',
-    description: 'Descubre las maravillas del Pacífico Sur',
-    imageUrl: '/images/Nueva-York-City-Hall-Park.jpg'
-  }
-];
+const fieldsToSelect = {
+  id: true,
+  slug: true,
+  name: true,
+  backgroundImage: true,
+  mainImage: true,
+  description: true,
+};
+type Category = Prisma.CategoryGetPayload<{ select: typeof fieldsToSelect }>;
 
-export function getCategoryBySlug(slug: string): Category | undefined {
-  return categories.find(category => category.slug === slug);
-}
+export async function getCategoryBySlug(slug: string) {
+  const categories = await prisma.category.findUnique({
+    where: { slug },
+    select: fieldsToSelect,
+  });
 
-export function getAllCategories(): Category[] {
   return categories;
 }
 
-export function isValidCategorySlug(slug: string): boolean {
-  return categories.some(category => category.slug === slug);
+export async function getAllCategories() {
+  return prisma.category.findMany({
+    orderBy: { id: 'asc' },
+    select: fieldsToSelect,
+  });
+}
+
+export async function isValidCategorySlug(slug: string): Promise<boolean> {
+  const categories = await getAllCategories();
+  return categories.some((category: Category) => category.slug === slug);
 } 

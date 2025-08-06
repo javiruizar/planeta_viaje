@@ -11,6 +11,10 @@ import Breadcrumbs from "@/components/layout/Breadcrumbs";
 interface CategoryPageProps {
   params: Promise<{
     slug: string;
+    name: string;
+    backgroundImage?: string;
+    mainImage?: string;
+    description?: string;
   }>;
 }
 
@@ -19,7 +23,7 @@ interface CategoryPageProps {
  * Esto mejora el rendimiento y SEO de las páginas de categorías.
  */
 export async function generateStaticParams() {
-  const categories = getAllCategories();
+  const categories = await getAllCategories();
   
   return categories.map((category) => ({
     slug: category.slug,
@@ -41,7 +45,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
   }
   
-  const category = getCategoryBySlug(slug);
+  const category = await getCategoryBySlug(slug);
   
   if (!category) {
     return {
@@ -56,7 +60,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     keywords: `${category.name}, viajes, turismo, destinos, ${category.name.toLowerCase()}`,
     openGraph: {
       title: `${category.name} - Planeta Viaje`,
-      description: category.description,
+      description: category.description || 'Es una de las categorias de Planeta Viaje',
       type: 'website',
       locale: 'es_ES',
       siteName: 'Planeta Viaje',
@@ -64,7 +68,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     twitter: {
       card: 'summary_large_image',
       title: `${category.name} - Planeta Viaje`,
-      description: category.description,
+      description: category.description || 'Es una de las categorias de Planeta Viaje',
     },
     alternates: {
       canonical: `https://planetaviaje.com/category/${slug}`,
@@ -81,7 +85,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   }
   
   // Obtener la información de la categoría
-  const category = getCategoryBySlug(slug);
+  const category = await getCategoryBySlug(slug);
   
   if (!category) {
     notFound();
@@ -92,9 +96,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   
   return (
     <>
-      <Header backgroundImage="/images/IMG_9881.jpg"/>
+      <Header backgroundImage={category.mainImage || "/images/tailandia.jpg"}/>
       <ParallaxBackground 
-        localImage={category.imageUrl || "/images/Nueva-York-City-Hall-Park.jpg"}
+        localImage={category.backgroundImage || "/images/IMG_9881.jpg"}
         overlay={true}
         overlayColor="rgba(0, 0, 0, 0.4)"
       >

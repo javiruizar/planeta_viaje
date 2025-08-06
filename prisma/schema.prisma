@@ -70,7 +70,8 @@ model Category {
   parentId  String?
   children  Category[] @relation("SubCategories")
   mainImage String?
-  backgroundImage String? 
+  backgroundImage String?
+  description String? 
   posts     Post[]
 }
 
