@@ -7,6 +7,7 @@ import { FaFacebook, FaTwitter, FaInstagram, FaYoutube} from 'react-icons/fa';
 import Logo from './Logo';
 import DropdownMenu from './DropdownMenu';
 import MobileMenu from './MobileMenu';
+import SearchBar from './SearchBar';
 
 type HeaderProps = {
   backgroundImage: string;
@@ -81,12 +82,13 @@ const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
             <div className="flex justify-center">
               <Link href="/sitios-utiles" className="text-white px-4 py-8 hover:bg-white/20 rounded-lg transition-colors font-semibold text-lg uppercase whitespace-nowrap">SITIOS ÚTILES</Link>
             </div>
-            {/* 5. Redes sociales */}
-            <div className="flex justify-center space-x-4">
+            {/* 5. Redes sociales y búsqueda */}
+            <div className="flex justify-center items-center space-x-4">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-600 transition-colors" aria-label="Facebook"><FaFacebook size={24} /></a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-400 transition-colors" aria-label="Twitter"><FaTwitter size={24} /></a>
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-pink-600 transition-colors" aria-label="Instagram"><FaInstagram size={24} /></a>
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-red-600 transition-colors" aria-label="YouTube"><FaYoutube size={24} /></a>
+            <SearchBar />
             </div>
           </div>
           {/* Versión móvil */}
@@ -113,6 +115,10 @@ const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
                   if (isOpen) setDestinosMenuOpen(false);
                 }}
               />
+            </div>
+            {/* Búsqueda móvil */}
+            <div className="flex justify-center mt-4">
+              <SearchBar />
             </div>
           </div>
         </div>
