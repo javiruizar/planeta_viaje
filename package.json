@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/mdx": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
@@ -37,8 +38,5 @@
     "tailwindcss": "^4.1.11",
     "ts-node": "^10.9.2",
     "typescript": "^5"
-  },
-  "prisma": {
-    "seed": "ts-node --project prisma/tsconfig.seed.json prisma/seed.ts"
   }
 }

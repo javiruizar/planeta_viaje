@@ -69,7 +69,9 @@ model Category {
   parent    Category?  @relation("SubCategories", fields: [parentId], references: [id])
   parentId  String?
   children  Category[] @relation("SubCategories")
-  
+  mainImage String?
+  backgroundImage String?
+  description String? 
   posts     Post[]
 }
 

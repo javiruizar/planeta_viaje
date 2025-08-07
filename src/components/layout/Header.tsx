@@ -29,7 +29,7 @@ const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
 
   // Formato común para ambos menús
   const menuStyles = {
-    container: "absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-1 border border-gray-200",
+    container: "absolute top-full left-0 w-48 bg-white rounded-lg shadow-lg py-1 z-1 border border-gray-200",
     link: "block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors"
   };
 
