@@ -82,13 +82,13 @@ const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
             <div className="flex justify-center">
               <Link href="/sitios-utiles" className="text-white px-4 py-8 hover:bg-white/20 rounded-lg transition-colors font-semibold text-lg uppercase whitespace-nowrap">SITIOS ÚTILES</Link>
             </div>
-            {/* 5. Redes sociales y búsqueda */}
+                        {/* 5. Redes sociales y búsqueda */}
             <div className="flex justify-center items-center space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-600 transition-colors" aria-label="Facebook"><FaFacebook size={24} /></a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-blue-400 transition-colors" aria-label="Twitter"><FaTwitter size={24} /></a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-pink-600 transition-colors" aria-label="Instagram"><FaInstagram size={24} /></a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-red-600 transition-colors" aria-label="YouTube"><FaYoutube size={24} /></a>
-            <SearchBar />
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/80 transition-all duration-300 text-white hover:text-blue-600" aria-label="Facebook"><FaFacebook size={24} /></a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/80 transition-all duration-300 text-white hover:text-blue-400" aria-label="Twitter"><FaTwitter size={24} /></a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/80 transition-all duration-300 text-white hover:text-pink-600" aria-label="Instagram"><FaInstagram size={24} /></a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/80 transition-all duration-300 text-white hover:text-red-600" aria-label="YouTube"><FaYoutube size={24} /></a>
+              <SearchBar />
             </div>
           </div>
           {/* Versión móvil */}
