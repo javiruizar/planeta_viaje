@@ -52,6 +52,7 @@ const SearchBar = () => {
   const handleClose = () => {
     setIsExpanded(false);
     setSearchTerm('');
+    setIsHovered(false); // Reseteamos el estado hover al cerrar
   };
 
   const handleSearch = () => {
