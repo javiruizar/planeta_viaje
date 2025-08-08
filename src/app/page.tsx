@@ -39,7 +39,7 @@ export default async function Home() {
 
   return (
     <>
-    <Header backgroundImage="/images/IMG_9881.jpg"/>
+    <Header/>
     <ParallaxBackground 
       localImage="/images/Nueva-York-City-Hall-Park.jpg"
       // s3Image="https://tu-bucket.s3.region.amazonaws.com/ruta/a/imagen.jpg"

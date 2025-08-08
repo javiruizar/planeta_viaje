@@ -10,11 +10,11 @@ import MobileMenu from './MobileMenu';
 import SearchBar from './SearchBar';
 
 type HeaderProps = {
-  backgroundImage: string;
+  backgroundImage?: string;
   isPost?: boolean;
 };
 
-const Header = ({ backgroundImage, isPost = false }: HeaderProps) => {
+const Header = ({ backgroundImage="/images/valle-del-lago.jpg", isPost = false }: HeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [destinosMenuOpen, setDestinosMenuOpen] = useState(false);
 
