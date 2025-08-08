@@ -132,7 +132,7 @@ export default function CookiesPage() {
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">5.3. Panel de Control de Cookies</h3>
               <p className="text-gray-700 mb-4">
-                Puede gestionar sus preferencias de cookies a través de nuestro panel de control. Haga clic en "Configuración de Cookies" en la parte inferior de cualquier página.
+                Puede gestionar sus preferencias de cookies a través de nuestro panel de control. Haga clic en &quot;Configuración de Cookies&quot; en la parte inferior de cualquier página.
               </p>
             </section>
 

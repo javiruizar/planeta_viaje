@@ -1,7 +1,6 @@
 // src/app/page.tsx
 
 // Importamos el componente PostCard para mostrar cada artículo.
-import PostCard from "@/components/blog/PostCard";
 import BrightPostCard from "@/components/blog/BrighPostCard";
 // Importamos la función que obtiene los posts reales desde la base de datos.
 import { getAllPosts } from "@/lib/posts";

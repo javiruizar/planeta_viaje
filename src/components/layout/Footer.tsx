@@ -1,6 +1,7 @@
 // src/components/layout/Footer.tsx
 
 // Se importa React para poder definir el componente.
+import Link from 'next/link';
 import React from 'react';
 
 /**
@@ -41,8 +42,8 @@ const Footer = () => {
         {/* Párrafo para el texto de copyright. Muestra el año actual dinámicamente. */}
 
         <p>&copy; {new Date().getFullYear()} 
-          <a href="/" className="px-3 hover:font-bold transition-all duration-300">Planeta Viaje</a>
-          Todos los derechos reservados</p>
+          <Link href="/" className="px-3 hover:font-bold transition-all duration-300">Planeta Viaje</Link>
+          Todos los derechos reservados.</p>
 
       </div>
     </footer>

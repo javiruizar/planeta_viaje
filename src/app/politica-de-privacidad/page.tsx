@@ -29,8 +29,8 @@ export default function PoliticaPrivacidadPage() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <Breadcrumbs 
           items={[
-            { name: 'Inicio', href: '/' },
-            { name: 'Política de Privacidad', href: '/politica-privacidad' }
+            { label: 'Inicio', href: '/' },
+            { label: 'Política de Privacidad', href: '/politica-privacidad' }
           ]} 
         />
         

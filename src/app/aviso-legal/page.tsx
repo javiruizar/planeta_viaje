@@ -63,7 +63,7 @@ export default function AvisoLegalPage() {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">2. Términos y Condiciones de Uso</h2>
               <h3 className="text-xl font-semibold text-gray-800 mb-3">2.1. Objeto</h3>
               <p className="text-gray-700 mb-4">
-                Las presentes condiciones regulan el uso del servicio del sitio web Planeta Viaje (en adelante, "el Sitio Web") que Planeta Viaje pone a disposición de los usuarios de Internet.
+                Las presentes condiciones regulan el uso del servicio del sitio web Planeta Viaje (en adelante, &quot;el Sitio Web&quot; que Planeta Viaje pone a disposición de los usuarios de Internet.
               </p>
               
               <h3 className="text-xl font-semibold text-gray-800 mb-3">2.2. Aceptación de las Condiciones</h3>
