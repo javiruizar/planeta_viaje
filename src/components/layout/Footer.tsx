@@ -1,6 +1,7 @@
 // src/components/layout/Footer.tsx
 
 // Se importa React para poder definir el componente.
+import Link from 'next/link';
 import React from 'react';
 
 /**
@@ -31,14 +32,18 @@ const Footer = () => {
 
           {/* Enlaces a páginas informativas. 'px-3' les da espaciado horizontal y
               'hover:text-yellow-400' cambia su color al pasar el ratón. */}
-          <a href="/about" className="px-3 hover:bg-agua-oscuro hover:text-arena-oscuro transition-colors">Sobre nosotros</a>
-          <a href="/contact" className="px-3 hover:bg-agua-oscuro hover:text-arena-oscuro transition-colors">Contacto</a>
-          <a href="/privacy" className="px-3 hover:bg-agua-oscuro hover:text-arena-oscuro transition-colors">Política de Privacidad</a>
+          <a href="/politica-de-privacidad" target="_blank" rel="noopener noreferrer" className="px-3 hover:font-bold transition-all duration-300">Política de Privacidad </a>
+          <a>|</a>
+          <a href="/aviso-legal" target="_blank" rel="noopener noreferrer" className="px-3 hover:font-bold transition-all duration-300">Aviso Legal</a>
+          <a>|</a>
+          <a href="/cookies" target="_blank" rel="noopener noreferrer" className="px-3 hover:font-bold transition-all duration-300">Política de Cookies</a>
         </div>
 
         {/* Párrafo para el texto de copyright. Muestra el año actual dinámicamente. */}
 
-        <p>&copy; {new Date().getFullYear()} Planeta Viaje. Todos los derechos reservados.</p>
+        <p>&copy; {new Date().getFullYear()} 
+          <Link href="/" className="px-3 hover:font-bold transition-all duration-300">Planeta Viaje</Link>
+          Todos los derechos reservados.</p>
 
       </div>
     </footer>

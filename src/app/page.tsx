@@ -1,7 +1,7 @@
 // src/app/page.tsx
 
 // Importamos el componente PostCard para mostrar cada artículo.
-import PostCard from "@/components/blog/PostCard";
+import BrightPostCard from "@/components/blog/BrighPostCard";
 // Importamos la función que obtiene los posts reales desde la base de datos.
 import { getAllPosts } from "@/lib/posts";
 // Importamos el componente de fondo parallax
@@ -38,7 +38,7 @@ export default async function Home() {
 
   return (
     <>
-    <Header backgroundImage="/images/IMG_9881.jpg"/>
+    <Header/>
     <ParallaxBackground 
       localImage="/images/Nueva-York-City-Hall-Park.jpg"
       // s3Image="https://tu-bucket.s3.region.amazonaws.com/ruta/a/imagen.jpg"
@@ -65,7 +65,7 @@ export default async function Home() {
         */}
         {posts.length > 0 ? (
           posts.slice(0, 3).map((post) => (
-            <PostCard key={post.slug} {...post} />
+            <BrightPostCard key={post.slug} {...post} />
           ))
         ) : (
           <div className="col-span-full text-center text-gray-500 py-8">

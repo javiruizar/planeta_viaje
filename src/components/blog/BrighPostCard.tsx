@@ -55,11 +55,11 @@ const BrightPostCard = ({ title, imageUrl, slug, createdAt }: BrightPostCardProp
           src={imageUrl} 
           alt={`Imagen de portada para ${title}`} 
           fill 
-          className="object-cover transition-all duration-500 group-hover:scale-105 brightness-75 group-hover:brightness-100"
+          className="object-cover transition-all duration-500 group-hover:scale-105 brightness-100 group-hover:brightness-100"
           />
         
         {/* Overlay gradiente para mejorar la legibilidad del texto */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent"></div>
       </div>
 
       {/* Contenedor para el contenido (título y fecha) */}
