@@ -100,3 +100,14 @@ model User {
   password  String
   createdAt DateTime @default(now())
 }
+
+
+model Images {
+id  String @id
+url String
+alt String
+tittle String
+tags String[]
+description String
+
+}

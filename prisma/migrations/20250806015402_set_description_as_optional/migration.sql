@@ -1,4 +1,3 @@
 -- AlterTable
-ALTER TABLE "Category" ADD COLUMN     "backgroundImage" TEXT,
-ADD COLUMN     "mainImage" TEXT,
+ALTER TABLE "Category" 
 ALTER COLUMN "description" DROP NOT NULL;
