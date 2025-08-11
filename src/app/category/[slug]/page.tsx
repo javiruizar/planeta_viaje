@@ -98,11 +98,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     <>
       <Header backgroundImage={category.mainImage || "/images/tailandia.jpg"}/>
       <ParallaxBackground 
-        localImage={category.backgroundImage || "/images/IMG_9881.jpg"}
+        localImage={category.backgroundImage || "/images/Nueva-York-City-Hall-Park.jpg"}
         overlay={true}
         overlayColor="rgba(0, 0, 0, 0.4)"
       >
-        <div className="mx-auto bg-stone-500/80">
+        <div className="mx-auto bg-gray-500/80">
           <section className="py-16">
             <div className="max-w-7xl mx-auto px-12">
               <Breadcrumbs 
