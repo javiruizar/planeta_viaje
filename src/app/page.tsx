@@ -45,7 +45,8 @@ export default async function Home() {
       overlay={true}
       overlayColor="rgba(0, 0, 0, 0.4)"
     >
-      
+    <h1 className="sr-only">Planeta viaje - Tu blog para planificar tus viajes por libre - Rutas, guias y consejos para viajar por tu cuenta</h1>
+
       <div className="mx-auto px-4 bg-gray-500/80">
       <section className="py-16">
         <h1 className="text-4xl font-bold mb-12 text-center text-white ">
