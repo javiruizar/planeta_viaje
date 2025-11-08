@@ -44,3 +44,4 @@ next-env.d.ts
 
 # Docker
 postgres-data/
+planeta_viaje_webserver.tar
