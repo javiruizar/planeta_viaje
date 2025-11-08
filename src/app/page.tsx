@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 // src/app/page.tsx
 
 // Importamos el componente PostCard para mostrar cada artículo.

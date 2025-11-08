@@ -8,7 +8,7 @@ version: '3.8'
 # que compondrán nuestra aplicación. En este caso, solo tenemos uno: 'postgres'.
 services:
   # 'postgres' es el nombre que le damos a nuestro servicio de base de datos.
-  postgres:
+  db:
     # 'image' especifica la imagen de Docker que se usará para crear el contenedor.
     # 'postgres:15-alpine' es una imagen oficial de PostgreSQL, versión 15, sobre
     # una base ligera de Alpine Linux, lo que la hace más pequeña y eficiente.
@@ -30,7 +30,11 @@ services:
     # desde nuestra aplicación local en 'localhost:5432'.
     ports:
       - "5432:5432"
-
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "user_planeta"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
     # 'volumes' se usa para persistir datos. Sin esto, los datos de la base de datos
     # se perderían cada vez que el contenedor se detuviera o reiniciara.
     volumes:
@@ -42,8 +46,30 @@ services:
     # 'unless-stopped' significa que el contenedor se reiniciará automáticamente
     # (por ejemplo, si el sistema se reinicia), a menos que lo detengamos manualmente.
     restart: unless-stopped
+  migrate:
+    image: planeta_viaje_webserver:latest
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed"]
+    environment:
+      DATABASE_URL: postgres://user_planeta:password_planeta@db:5432/db_planeta
+    restart: "no" 
+  web:
+    image: planeta_viaje_webserver:latest
+    # build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://user_planeta:password_planeta@db:5432/db_planeta
+      NODE_ENV: production
+    depends_on:
+        db:
+          condition: service_started
 
 # La sección 'volumes' es donde se declaran los volúmenes que Docker gestionará.
 # Esto permite que los datos persistan de forma segura fuera del ciclo de vida del contenedor.
 volumes:
   postgres-data:
+
