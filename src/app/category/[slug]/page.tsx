@@ -26,7 +26,9 @@ interface CategoryPageProps {
  * Esto mejora el rendimiento y SEO de las páginas de categorías.
  */
 export async function generateStaticParams() {
-
+  if (process.env.SKIP_STATIC_PARAMS === "true") {
+    return [];
+  }
   const categories = await getAllCategories();
   
   return categories.map((category) => ({

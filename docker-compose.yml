@@ -31,7 +31,7 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "user_planeta"]
+      test: ["CMD", "pg_isready", "-U", "user_planeta", "-d", "db_planeta"]
       interval: 5s
       timeout: 3s
       retries: 5
@@ -46,30 +46,39 @@ services:
     # 'unless-stopped' significa que el contenedor se reiniciará automáticamente
     # (por ejemplo, si el sistema se reinicia), a menos que lo detengamos manualmente.
     restart: unless-stopped
-  migrate:
-    image: planeta_viaje_webserver:latest
-    depends_on:
-      db:
-        condition: service_healthy
-    command: ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed"]
-    environment:
-      DATABASE_URL: postgres://user_planeta:password_planeta@db:5432/db_planeta
-    restart: "no" 
+  
   web:
+    # Esta sección 'build' se usará en local
+    # y se ignorará en el NAS (porque la imagen ya existirá)
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Pasa la URL de la DB para que el build se conecte al servicio 'db'
+        - DATABASE_URL=postgres://user_planeta:password_planeta@planeta_viaje_db:5432/db_planeta
+        - SKIP_STATIC_PARAMS=true 
+    # Este es el nombre de la imagen que crearemos y transferiremos
     image: planeta_viaje_webserver:latest
-    # build: .
+    container_name: planeta_viaje_web
     restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgres://user_planeta:password_planeta@db:5432/db_planeta
+      # Esta es la variable para 'runtime' (cuando ya está corriendo)
+      DATABASE_URL: postgres://user_planeta:password_planeta@planeta_viaje_db:5432/db_planeta
       NODE_ENV: production
     depends_on:
         db:
-          condition: service_started
+          condition: service_healthy # Espera a que la DB esté lista
+  migrate:
+      image: planeta_viaje_webserver:latest
+      depends_on:
+        db:
+          condition: service_healthy
+      environment:
+        DATABASE_URL: postgres://user_planeta:password_planeta@planeta_viaje_db:5432/db_planeta?schema=public
+      command: ["sh", "-c", "npx prisma migrate deploy && npx prisma db seed"]
+      restart: "no" 
 
-# La sección 'volumes' es donde se declaran los volúmenes que Docker gestionará.
-# Esto permite que los datos persistan de forma segura fuera del ciclo de vida del contenedor.
 volumes:
   postgres-data:
-

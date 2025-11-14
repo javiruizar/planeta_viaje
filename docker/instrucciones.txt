@@ -1,0 +1,15 @@
+Construir imagen del proyecto web:
+	docker compose build web
+
+Guardar fichero comprimido con la imagen:
+	docker save -o planeta_viaje_webserver.tar planeta_viaje_webserver:latest
+
+Copiar por scp el docker compose y el tar
+	scp planeta_viaje_webserver.tar Javi@ip-nas:/volume1/home/Javi/web-projects/planeta_viaje
+	scp docker-compose.yml Javi@ip-nas:/volume1/home/Javi/web-projects/planeta_viaje
+
+En el Nas: Cargar la imagen en docker:
+	docker load -i planeta_viaje_webserver.tar
+	
+Levantar contenedores
+	docker compose up -d

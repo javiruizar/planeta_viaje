@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+
 // src/app/page.tsx
 
 // Importamos el componente PostCard para mostrar cada artículo.
@@ -71,7 +72,7 @@ export default async function Home() {
             <BrightPostCard key={post.slug} {...post} />
           ))
         ) : (
-          <div className="col-span-full text-center text-gray-500 py-8">
+          <div className="col-span-full text-center text-white py-8">
             No hay entradas disponibles por el momento. ¡Pronto habrá nuevas aventuras!
           </div>
         )}

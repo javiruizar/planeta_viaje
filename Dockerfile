@@ -4,7 +4,8 @@ FROM node:20-alpine
 WORKDIR /app
 ARG SKIP_STATIC_PARAMS=true
 ENV SKIP_STATIC_PARAMS=$SKIP_STATIC_PARAMS
-
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
 # Copiamos dependencias
 COPY package*.json ./
 RUN npm install
