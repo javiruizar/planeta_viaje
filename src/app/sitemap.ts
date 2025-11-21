@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import { MetadataRoute } from 'next';
 import { getAllCategories } from '@/lib/categories';
 import { getAllPosts } from '@/lib/posts';

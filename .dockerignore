@@ -1,0 +1,12 @@
+# Ignorar ficheros de variables de entorno locales
+.env
+.env.local
+.env.development
+
+# Ignorar dependencias 
+node_modules
+
+# Ignorar logs y artefactos de build
+.next
+npm-debug.log
+*.tar

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 /**
  * posts.ts
  *
@@ -42,6 +44,7 @@ export interface CategoryDTO {
  * const posts = await getAllPosts();
  */
 export async function getAllPosts(): Promise<PostDTO[]> {
+
   const posts = await prisma.post.findMany({
     orderBy: { createdAt: 'desc' },
     select: {
